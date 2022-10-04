@@ -1,5 +1,5 @@
 .about-project {
-  padding: 110px 0;
+  padding: 110px 0 95px;
 }
 
 .about-project__container {
@@ -15,12 +15,13 @@
   border-bottom: 1px solid #000;
   padding-bottom: 23px;
   margin: 0;
+  letter-spacing: -0.04em;
 }
 
 .about-project__list {
   list-style-type: none;
   display: flex;
-  gap: 40px;
+  gap: 50px;
   margin-top: 70px;
   padding: 0;
 }
@@ -30,6 +31,7 @@
   font-size: 20px;
   line-height: 1.2;
   margin: 0;
+  letter-spacing: -0.04em;
 }
 
 .about-project__text {

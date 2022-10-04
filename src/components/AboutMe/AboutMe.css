@@ -16,6 +16,7 @@
   padding-bottom: 23px;
   width: 100%;
   margin: 0;
+  letter-spacing: -0.04em;
 }
 
 .about-me__info-container {
@@ -36,6 +37,7 @@
   font-size: 50px;
   line-height: 1.16;
   margin: 0;
+  letter-spacing: -0.04em;
 }
 
 .about-me__about {
@@ -66,4 +68,5 @@
 .about-me__photo {
   width: 270px;
   height: 327px;
+  border-radius: 10px;
 }

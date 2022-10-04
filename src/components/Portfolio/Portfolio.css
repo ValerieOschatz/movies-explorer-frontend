@@ -1,5 +1,5 @@
 .portfolio {
-  padding: 100px 0 125px;
+  padding: 100px 0 104px;
 }
 
 .portfolio__container {
@@ -21,14 +21,14 @@
   list-style-type: none;
   padding: 0;
   margin: 0;
-  margin-top: 40px;
+  margin-top: 30px;
 }
 
 .portfolio__item {
   border-bottom: 1px solid #E8E8E8;
   background-image: url(../../images/arrow.svg);
   background-repeat: no-repeat;
-  background-size: 25px;
+  background-size: 17px;
   background-position: right center;
 }
 
@@ -46,4 +46,5 @@
   align-items: center;
   font-size: 30px;
   line-height: 1.67;
+  letter-spacing: -0.04em;
 }

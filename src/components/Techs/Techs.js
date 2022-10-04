@@ -9,25 +9,25 @@ function Techs() {
         <p className="techs__text">На курсе веб-разработки мы освоили технологии, которые применили в дипломном проекте.</p>
         <ul className="techs__list">
           <li className="techs__item">
-            <p className="techs__text">HTML</p>
+            <p className="techs__tag">HTML</p>
           </li>
           <li className="techs__item">
-            <p className="techs__text">CSS</p>
+            <p className="techs__tag">CSS</p>
           </li>
           <li className="techs__item">
-            <p className="techs__text">JS</p>
+            <p className="techs__tag">JS</p>
           </li>
           <li className="techs__item">
-            <p className="techs__text">React</p>
+            <p className="techs__tag">React</p>
           </li>
           <li className="techs__item">
-            <p className="techs__text">Git</p>
+            <p className="techs__tag">Git</p>
           </li>
           <li className="techs__item">
-            <p className="techs__text">Express.js</p>
+            <p className="techs__tag">Express.js</p>
           </li>
           <li className="techs__item">
-            <p className="techs__text">mongoDB</p>
+            <p className="techs__tag">mongoDB</p>
           </li>
         </ul>
       </div>
