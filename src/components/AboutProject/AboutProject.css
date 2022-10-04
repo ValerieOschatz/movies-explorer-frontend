@@ -1,22 +1,23 @@
-.nav-tab {
+.about-project {
   padding: 110px 0;
 }
 
-.nav-tab__container {
+.about-project__container {
   max-width: 1140px;
   width: 100%;
   margin: 0 auto;
 }
 
-.nav-tab__title {
+.about-project__title {
   font-weight: 400;
   font-size: 22px;
   line-height: 1.23;
   border-bottom: 1px solid #000;
   padding-bottom: 23px;
+  margin: 0;
 }
 
-.nav-tab__list {
+.about-project__list {
   list-style-type: none;
   display: flex;
   gap: 40px;
@@ -24,28 +25,28 @@
   padding: 0;
 }
 
-.nav-tab__subtitle {
+.about-project__subtitle {
   font-weight: 400;
   font-size: 20px;
   line-height: 1.2;
   margin: 0;
 }
 
-.nav-tab__text {
+.about-project__text {
   font-size: 14px;
   line-height: 1.43;
   margin: 0;
   margin-top: 26px;
 }
 
-.nav-tab__table {
+.about-project__table {
   display: grid;
   grid-template-columns: 1fr 4fr;
   grid-template-rows: 36px 46px;
   margin-top: 110px;
 }
 
-.nav-tab__table-text {
+.about-project__table-text {
   font-size: 14px;
   line-height: 1.21;
   display: flex;
@@ -54,15 +55,15 @@
   justify-content: center;
 }
 
-.nav-tab__table-text_type_one-week {
+.about-project__table-text_type_one-week {
   background-color: #2BE080;;
 }
 
-.nav-tab__table-text_type_four-week {
+.about-project__table-text_type_four-week {
   background-color: #F2F2F2;
 }
 
-.nav-tab__table-text_type_additional {
+.about-project__table-text_type_additional {
   font-weight: 500;
   color: #A0A0A0;
 }
