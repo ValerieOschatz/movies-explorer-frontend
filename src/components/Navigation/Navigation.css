@@ -12,6 +12,11 @@
   font-weight: 500;
   font-size: 12px;
   line-height: 1.33;
+  transition: opacity .3s ease-out;
+}
+
+.navigation__link:hover {
+  opacity: .5;
 }
 
 .navigation__link_login {
@@ -19,4 +24,19 @@
   padding: 9px 20px;
   background-color: #2BE080;
   border-radius: 3px;
+}
+
+@media screen and (max-width: 767px) {
+  .navigation__list {
+    gap: 14px;
+  }
+
+  .navigation__link {
+    font-size: 10px;
+    line-height: 1.6;
+  }
+
+  .navigation__link_login {
+    padding: 5px 12px;
+  }
 }

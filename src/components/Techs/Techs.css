@@ -59,6 +59,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: box-shadow .3s ease-out;
+}
+
+.techs__item:hover {
+  box-shadow: 5px 5px 5px #ccc;
 }
 
 .techs__tag {

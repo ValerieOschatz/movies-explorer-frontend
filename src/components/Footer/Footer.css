@@ -44,4 +44,9 @@
   margin: 0;
   text-decoration: none;
   color: inherit;
+  transition: opacity .3s ease-out;
+}
+
+.footer__link:hover {
+  opacity: .5;
 }

@@ -63,6 +63,11 @@
   color: inherit;
   margin: 0;
   margin-top: auto;
+  transition: opacity .3s ease-out;
+}
+
+.about-me__link:hover {
+  opacity: .5;
 }
 
 .about-me__photo {
