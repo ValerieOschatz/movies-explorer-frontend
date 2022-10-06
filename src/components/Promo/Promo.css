@@ -6,7 +6,7 @@
   max-width: 1140px;
   width: 100%;
   margin: 0 auto;
-  min-height: 560px;
+  min-height: 559px;
   padding-top: 50px;
   box-sizing: border-box;
   background-image: url(../../images/landing-logo.svg);
@@ -27,7 +27,7 @@
 
 @media screen and (max-width: 1279px) {
   .promo__container {
-    width: calc(100% - 44px);
+    width: calc(100% - 44px * 2);
   }
 }
 
@@ -40,7 +40,7 @@
   }
 
   .promo__title {
-    max-width: 100%;
+    max-width: 680px;
     text-align: center;
   }
 }
@@ -48,7 +48,7 @@
 @media screen and (max-width: 900px) {
   .promo__container {
     padding-top: 300px;
-    min-height: 844px;
+    min-height: 843px;
   }
 }
 
@@ -73,7 +73,7 @@
 
 @media screen and (max-width: 524px) {
   .promo__container {
-    width: calc(100% - 10px);
+    width: calc(100% - 10px * 2);
     padding-top: 183px;
     min-height: 630px;
     background-position: center bottom 40px;
