@@ -1,6 +1,10 @@
 .header {
-  background-color: #5C5C5C;
+  background-color: #fff;
   padding: 18px 0 17px;
+}
+
+.header_promo {
+  background-color: #5C5C5C;
 }
 
 .header__container {
