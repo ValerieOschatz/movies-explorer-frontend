@@ -5,11 +5,13 @@ import Movies from '../Movies/Movies';
 import Footer from '../Footer/Footer';
 
 function App() {
+  const isLoading = false;
+
   return (
     <div className="App">
       <Header />
       {/* <Main /> */}
-      <Movies />
+      <Movies isLoading={isLoading} />
       <Footer />
     </div>
   );
