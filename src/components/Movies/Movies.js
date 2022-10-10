@@ -9,6 +9,7 @@ function Movies({ isLoading }) {
       <SearchForm />
       {isLoading && <Preloader />}
       <MoviesCardList />
+      <button className="movies__button">Ещё</button>
     </main>
   );
 }

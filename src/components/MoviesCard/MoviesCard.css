@@ -23,7 +23,7 @@
   font-size: 13px;
   line-height: 1.38;
   color: #A0A0A0;
-  margin: 18px;
+  margin: 17px;
 }
 
 .movies-card__button {
@@ -35,7 +35,7 @@
   align-self: center;
   font-size: 12px;
   line-height: 0.92;
-  margin: 18px;
+  margin: 17px;
   cursor: pointer;
   transition: opacity .3s ease-out;
 }

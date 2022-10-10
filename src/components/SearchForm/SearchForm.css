@@ -1,6 +1,7 @@
 .search-form {
-  padding: 70px 0;
-  border-bottom: 1px solid #E8E8E8;;
+  padding: 70px 0 69px;
+  border-bottom: 1px solid #E8E8E8;
+  box-sizing: border-box;
 }
 
 .search-form__form {
@@ -30,8 +31,7 @@
   box-sizing: border-box;
   background-image: url(../../images/search.svg);
   background-repeat: no-repeat;
-  background-position: left 19px center;
-  background-size: 22px;
+  background-position: left 28px center;
   padding: 0 0 0 63px;
 }
 
@@ -52,13 +52,12 @@
   height: 34px;
   background-image: url(../../images/search_invisible.svg);
   background-repeat: no-repeat;
-  background-size: 16px;
   background-position: center;
   background-color: #2BE080;
   border-radius: 48px;
   cursor: pointer;
   transition: opacity .3s ease-out;
-  margin-right: 25px;
+  margin-right: 19px;
   position: relative;
 }
 
@@ -69,7 +68,7 @@
 .search-form__button::after {
   position: absolute;
   top: -2px;
-  right: -25px;
+  right: -21px;
   height: 40px;
   border-right: 1px solid #CBCBCB;
   content: '';

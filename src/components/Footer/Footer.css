@@ -1,6 +1,7 @@
 .footer {
   padding-top: 80px;
   background-color: #FAFAFA;
+  flex-shrink: 0;
 }
 
 .footer__container {
@@ -20,7 +21,7 @@
 
 .footer__menu {
   border-top: 1px solid #E8E8E8;
-  margin-top: 20px;
+  margin-top: 19px;
   display: flex;
   justify-content: space-between;
   align-items: baseline;
