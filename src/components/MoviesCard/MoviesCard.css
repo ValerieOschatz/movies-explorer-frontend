@@ -56,3 +56,21 @@
 .movies-card__button_saved:hover {
   opacity: 1;
 }
+
+@media screen and (max-width: 524px) {
+  .movies-card__title {
+    font-size: 12px;
+    line-height: 1.5;
+    margin: 14px;
+  }
+  
+  .movies-card__duration {
+    font-size: 10px;
+    line-height: 1.8;
+    margin: 14px;
+  }
+
+  .movies-card__button {
+    margin: 14px;
+  }
+}

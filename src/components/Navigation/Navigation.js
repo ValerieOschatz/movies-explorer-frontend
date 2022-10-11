@@ -2,8 +2,8 @@ import './Navigation.css';
 
 function Navigation() {
   return (
-    <nav className="navigation">
-      <nav>
+    <div className="navigation">
+      <nav className="navigation__menu">
         <ul className="navigation__list">
           {/* <li><a className="navigation__link" href="##">Регистрация</a></li> */}
           {/* <li><a className="navigation__link navigation__link_type_login" href="##">Войти</a></li> */}
@@ -17,7 +17,13 @@ function Navigation() {
           </li>
         </ul>
       </nav>
-    </nav>
+
+      <button className="navigation__button" type="button">
+        <div></div>
+        <div></div>
+        <div></div>
+      </button>
+    </div>
   );
 }
   

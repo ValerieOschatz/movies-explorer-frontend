@@ -42,3 +42,16 @@
 .filter-checkbox__invisible:checked + .filter-checkbox__visible::before {
   left: 18px;
 }
+
+@media screen and (max-width: 1023px) {
+  .filter-checkbox {
+    padding: 0 20px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .filter-checkbox {
+    font-size: 11px;
+    line-height: 1.64;
+  }
+}

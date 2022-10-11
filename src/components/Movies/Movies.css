@@ -24,3 +24,19 @@
 .movies__button:hover {
   opacity: .5;
 }
+
+@media screen and (max-width: 1279px) {
+  .movies {
+    width: calc(100% - 30px * 2);
+  }
+}
+
+@media screen and (max-width: 524px) {
+  .movies {
+    width: calc(100% - 10px * 2);
+  }
+
+  .movies__button {
+    width: 240px;
+  }
+}
