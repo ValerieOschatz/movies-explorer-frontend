@@ -44,7 +44,7 @@
   opacity: .5;
 }
 
-.movies-card__button_saved {
+.movies-card__button_type_saved {
   background-color: #EE3465;
   background-image: url(../../images/checked.svg);
   background-repeat: no-repeat;
@@ -53,8 +53,14 @@
   cursor: auto;
 }
 
-.movies-card__button_saved:hover {
+.movies-card__button_type_saved:hover {
   opacity: 1;
+}
+
+.movies-card__button_type_choosed {
+  background-image: url(../../images/cross.svg);
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 @media screen and (max-width: 524px) {

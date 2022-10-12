@@ -11,7 +11,7 @@ import film10 from '../images/film10.png';
 import film11 from '../images/film11.png';
 import film12 from '../images/film12.png';
 
-const cards = [
+const movies = [
   {
     image: film1,
     isSaved: true
@@ -62,4 +62,19 @@ const cards = [
   }
 ];
 
-export default cards;
+const savedMovies = [
+  {
+    image: film1,
+    isChoosed: true
+  },
+  {
+    image: film2,
+    isChoosed: true
+  },
+  {
+    image: film3,
+    isChoosed: true
+  }
+];
+
+export { movies, savedMovies };

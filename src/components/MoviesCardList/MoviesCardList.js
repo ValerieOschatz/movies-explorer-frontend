@@ -1,8 +1,7 @@
 import './MoviesCardList.css';
-import cards from '../../utils/cards';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList() {
+function MoviesCardList({ cards }) {
   return (
     <ul className="movies-cardlist">
       {cards.map((card, i) => (

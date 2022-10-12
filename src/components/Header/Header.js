@@ -13,7 +13,7 @@ function Header({ onNavigationClick }) {
           {/* <li><a className="navigation__link" href="##">Регистрация</a></li> */}
           {/* <li><a className="navigation__link navigation__link_type_login" href="##">Войти</a></li> */}
           <li><a className="header__link" href="##">Фильмы</a></li>
-          <li><a className="header__link" href="##">Сохранённые фильмы</a></li>
+          <li><a className="header__link header__link_type_saved-movies" href="##">Сохранённые фильмы</a></li>
           <li>
             <a className="header__link header__link_type_account" href="##">
               Аккаунт

@@ -62,6 +62,10 @@
   margin-left: 10px;
 }
 
+.header__link_type_saved-movies {
+  font-weight: 400;
+}
+
 .header__link_type_account {
   margin-left: 30px;
   display: flex;
