@@ -23,7 +23,7 @@
 }
 
 .header__logo:hover {
-  opacity: .5;
+  opacity: .6;
 }
 
 .header__list {
@@ -45,7 +45,7 @@
 }
 
 .header__link:hover {
-  opacity: .5;
+  opacity: .6;
 }
 
 .header__link_promo {
@@ -98,7 +98,7 @@
 }
 
 .header__button:hover {
-  opacity: .4;
+  opacity: .6;
 }
 
 .header__button div{
@@ -120,6 +120,7 @@
 
   .header__button {
     display: flex;
+    margin-right: 10px;
   }
 }
 

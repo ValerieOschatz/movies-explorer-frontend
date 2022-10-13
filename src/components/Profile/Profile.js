@@ -6,6 +6,7 @@ function Profile() {
       <h2 className="profile__title">Привет, Виталий!</h2>
       <form className="profile__form" name="profile">
         <label className="profile__form-field">
+          <span className="profile__input-error profile-name-input-error">error-text</span>
           <span className="profile__input-text">Имя</span>
           <input
             className="profile__input"
@@ -13,9 +14,13 @@ function Profile() {
             id="profile-name"
             type="text"
             required
-            value="Виталий" />
+            minLength="2"
+            maxLength="30"
+            value="Виталий"
+            placeholder="Имя" />
         </label>
         <label className="profile__form-field">
+          <span className="profile__input-error profile-email-input-error">error-text</span>
           <span className="profile__input-text">E-mail</span>
           <input
             className="profile__input"
@@ -23,7 +28,8 @@ function Profile() {
             id="profile-email"
             type="email"
             required
-            value="pochta@yandex.ru" />
+            value="pochta@yandex.ru"
+            placeholder="E-mail" />
         </label>
         <button className="profile__submit-button" type="submit">Редактировать</button>
       </form>

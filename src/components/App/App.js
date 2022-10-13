@@ -6,6 +6,8 @@ import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
+// import Register from '../Register/Register';
+import Login from '../Login/Login';
 import Navigation from '../Navigation/Navigation';
 import Footer from '../Footer/Footer';
 
@@ -23,11 +25,13 @@ function App() {
 
   return (
     <div className="App">
-      <Header onNavigationClick={handleNavigationClick} />
+      {/* <Header onNavigationClick={handleNavigationClick} /> */}
       {/* <Main /> */}
       {/* <Movies isLoading={isLoading} cards={movies} /> */}
       {/* <SavedMovies cards={savedMovies} /> */}
-      <Profile />
+      {/* <Profile /> */}
+      {/* <Register /> */}
+      <Login />
       <Navigation isOpen={isNavigationOpen} onClose={closeNavigation} />
       {/* <Footer /> */}
     </div>
