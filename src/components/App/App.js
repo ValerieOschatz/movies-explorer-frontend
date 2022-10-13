@@ -11,10 +11,13 @@ import Login from '../Login/Login';
 import NotFound from '../NotFound/NotFound';
 import Navigation from '../Navigation/Navigation';
 import Footer from '../Footer/Footer';
+import InfoTooltip from '../InfoTooltip/InfoTooltip';
 
 function App() {
   const isLoading = false;
+  const isPositiveAnswer = true;
   const [isNavigationOpen, setNavigationOpen] = useState(false);
+  const [isInfoTooltipOpen, setInfoTooltipOpen] = useState(false);
 
   function handleNavigationClick() {
     setNavigationOpen(true);
@@ -22,6 +25,10 @@ function App() {
 
   function closeNavigation() {
     setNavigationOpen(false);
+  }
+
+  function closeInfoTooltip() {
+    setInfoTooltipOpen(false);
   }
 
   return (
@@ -36,6 +43,7 @@ function App() {
       <NotFound />
       <Navigation isOpen={isNavigationOpen} onClose={closeNavigation} />
       {/* <Footer /> */}
+      <InfoTooltip isOpen={isInfoTooltipOpen} isPositiveAnswer={isPositiveAnswer} onClose={closeInfoTooltip} />
     </div>
   );
 }
