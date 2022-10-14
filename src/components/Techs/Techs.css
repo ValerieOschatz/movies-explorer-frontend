@@ -45,7 +45,7 @@
 .techs__list {
   list-style-type: none;
   display: grid;
-  grid-template-columns: repeat(auto-fit, 84px);
+  grid-template-columns: repeat(auto-fit, 90px);
   max-width: 690px;
   width: 100%;
   justify-content: center;
@@ -99,6 +99,7 @@
   .techs__list {
     margin-top: 83px;
     max-width: 648px;
+    grid-template-columns: repeat(auto-fit, 84px);
   }
 
   .techs__tag {

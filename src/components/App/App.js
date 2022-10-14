@@ -17,6 +17,7 @@ import InfoTooltip from '../InfoTooltip/InfoTooltip';
 function App() {
   const isLoading = false;
   const isPositiveAnswer = true;
+  const isLoggedIn = true;
   const [isNavigationOpen, setNavigationOpen] = useState(false);
   const [isInfoTooltipOpen, setInfoTooltipOpen] = useState(false);
 
@@ -34,7 +35,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header onNavigationClick={handleNavigationClick} />
+      <Header onNavigationClick={handleNavigationClick} isLoggedIn={isLoggedIn} />
 
       <Switch>
         <Route exact path="/">

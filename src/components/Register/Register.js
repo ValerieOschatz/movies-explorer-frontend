@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import './Register.css';
 import Auth from '../Auth/Auth';
 
@@ -41,7 +42,7 @@ function Register() {
         <span className="auth__input-error register-password-input-error auth__input-error_visible">Что-то пошло не так...</span>
       </label>
       <button className="auth__submit-button" type="submit">Зарегистрироваться</button>
-      <p className="auth__text">Уже зарегистрированы?<a className="auth__link" href="##">Войти</a></p>
+      <p className="auth__text">Уже зарегистрированы?<Link to="/signin" className="auth__link">Войти</Link></p>
     </Auth>
   );
 }

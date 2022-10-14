@@ -4,7 +4,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
 function SavedMovies({ cards }) {
   return (
-    <main className=".saved-movies">
+    <main className="saved-movies">
       <SearchForm />
       <MoviesCardList cards={cards} />
     </main>

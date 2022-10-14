@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import './Navigation.css';
 
 function Navigation({ isOpen, onClose }) {
@@ -8,19 +9,19 @@ function Navigation({ isOpen, onClose }) {
         <nav className="navigation__menu">
           <ul className="navigation__list">
             <li className="navigation__item">
-              <a className="navigation__link" href="##">Главная</a>
+              <NavLink exact to="/" className="navigation__link" activeClassName="navigation__link_type_active" onClick={onClose}>Главная</NavLink>
             </li>
             <li className="navigation__item">
-              <a className="navigation__link navigation__link_type_active" href="##">Фильмы</a>
+              <NavLink to="/movies" className="navigation__link" activeClassName="navigation__link_type_active" onClick={onClose}>Фильмы</NavLink>
             </li>
             <li className="navigation__item">
-              <a className="navigation__link" href="##">Сохранённые фильмы</a>
+              <NavLink to="/saved-movies" className="navigation__link" activeClassName="navigation__link_type_active" onClick={onClose}>Сохранённые фильмы</NavLink>
             </li>
             <li className="navigation__item">
-              <a className="navigation__link navigation__link_type_account" href="##">
+              <NavLink to="/profile" className="navigation__link navigation__link_type_account" activeClassName="navigation__link_type_active" onClick={onClose}>
                 <span>Аккаунт</span>
                 <div className="navigation__account-img"></div>
-              </a>
+              </NavLink>
             </li>
           </ul>
         </nav>

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import './Login.css';
 import Auth from '../Auth/Auth';
 
@@ -27,7 +28,7 @@ function Login() {
         <span className="auth__input-error login-password-input-error">error-text</span>
       </label>
       <button className="auth__submit-button auth__submit-button_type_login" type="submit">Войти</button>
-      <p className="auth__text">Ещё не зарегистрированы?<a className="auth__link" href="##">Регистрация</a></p>
+      <p className="auth__text">Ещё не зарегистрированы?<Link to="/signup" className="auth__link">Регистрация</Link></p>
     </Auth>
   );
 }
