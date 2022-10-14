@@ -51,7 +51,7 @@
 }
 
 .portfolio__link:hover {
-  opacity: .5;
+  opacity: .6;
 }
 
 @media screen and (max-width: 1279px) {

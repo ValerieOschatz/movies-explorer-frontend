@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import { movies, savedMovies } from '../../utils/cards';
 import Header from '../Header/Header';
@@ -33,16 +34,40 @@ function App() {
 
   return (
     <div className="App">
-      {/* <Header onNavigationClick={handleNavigationClick} /> */}
-      {/* <Main /> */}
-      {/* <Movies isLoading={isLoading} cards={movies} /> */}
-      {/* <SavedMovies cards={savedMovies} /> */}
-      {/* <Profile /> */}
-      {/* <Register /> */}
-      {/* <Login /> */}
-      <NotFound />
+      <Header onNavigationClick={handleNavigationClick} />
+
+      <Switch>
+        <Route exact path="/">
+          <Main />
+        </Route>
+
+        <Route path="/movies">
+          <Movies isLoading={isLoading} cards={movies} />
+        </Route>
+
+        <Route path="/saved-movies">
+          <SavedMovies cards={savedMovies} />
+        </Route>
+
+        <Route path="/profile">
+          <Profile />
+        </Route>
+
+        <Route path="/signup">
+          <Register />
+        </Route>
+
+        <Route path="/signin">
+          <Login />
+        </Route>
+
+        <Route path="*">
+          <NotFound />
+        </Route>
+      </Switch>
+
+      <Footer />
       <Navigation isOpen={isNavigationOpen} onClose={closeNavigation} />
-      {/* <Footer /> */}
       <InfoTooltip isOpen={isInfoTooltipOpen} isPositiveAnswer={isPositiveAnswer} onClose={closeInfoTooltip} />
     </div>
   );

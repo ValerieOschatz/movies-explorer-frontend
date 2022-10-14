@@ -11,7 +11,7 @@ function Navigation({ isOpen, onClose }) {
               <a className="navigation__link" href="##">Главная</a>
             </li>
             <li className="navigation__item">
-              <a className="navigation__link navigation__link_type_movies" href="##">Фильмы</a>
+              <a className="navigation__link navigation__link_type_active" href="##">Фильмы</a>
             </li>
             <li className="navigation__item">
               <a className="navigation__link" href="##">Сохранённые фильмы</a>

@@ -3,7 +3,7 @@ import img_success from '../../images/Union_t.svg';
 import img_error from '../../images/Union_f.svg';
 
 function InfoTooltip({ isOpen, onClose, isPositiveAnswer }) {
-  const infoText = `${isPositiveAnswer ? 'Вы успешно зарегистрировались!' : 'Что-то пошло не так! Попробуйте ещё раз.'}`;
+  const infoText = `${isPositiveAnswer ? 'Успешно!' : 'Что-то пошло не так! Попробуйте ещё раз.'}`;
 
   return (
     <div className={`info-tooltip ${isOpen && "info-tooltip_opened"}`}>

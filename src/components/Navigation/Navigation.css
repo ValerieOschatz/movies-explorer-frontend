@@ -52,7 +52,7 @@
 }
 
 .navigation__button:hover {
-  opacity: .5;
+  opacity: .6;
 }
 
 .navigation__menu {
@@ -94,7 +94,7 @@
   opacity: .6;
 }
 
-.navigation__link_type_movies {
+.navigation__link_type_active {
   border-bottom: 2px solid #000;
 }
 
