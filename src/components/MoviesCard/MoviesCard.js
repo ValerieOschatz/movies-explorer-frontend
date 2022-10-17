@@ -9,7 +9,7 @@ function MoviesCard({ card }) {
         <h2 className="movies-card__title">В погоне за Бенкси</h2>
         <p className="movies-card__duration">27 минут</p>
       </div>
-      <img className="movies-card__image" src={card.image} alt="" />
+      <img className="movies-card__image" src={card.image} alt="Картинка фильма" />
       <button className={buttonClassName} type="button" disabled={card.isSaved && true}>{card.isSaved || card.isChoosed ? "" : "Сохранить"}</button>
     </li>
   );

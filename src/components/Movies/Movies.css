@@ -19,6 +19,7 @@
   font-weight: 500;
   font-size: 12px;
   line-height: 1.25;
+  border-radius: 6px;
 }
 
 .movies__button:hover {
