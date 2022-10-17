@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
+import CurrentUserContext from '../contexts/CurrentUserContext';
 import './App.css';
 import { movies, savedMovies } from '../../utils/cards';
 import Header from '../Header/Header';
