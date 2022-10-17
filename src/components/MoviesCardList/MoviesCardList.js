@@ -4,8 +4,8 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 function MoviesCardList({ cards }) {
   return (
     <ul className="movies-cardlist">
-      {cards.map((card, i) => (
-        <MoviesCard key={i}
+      {cards.map((card) => (
+        <MoviesCard key={card.id}
         card={card} />
       ))}
     </ul>

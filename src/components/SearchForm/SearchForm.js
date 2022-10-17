@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-function SearchForm() {
+function SearchForm({ onSearch }) {
   const [query, setQuery] = useState({ query: '', isValid: false });
   const [errorText, setErrorText] = useState('');
 
@@ -15,8 +15,14 @@ function SearchForm() {
   
     if (!query.isValid) {
       setErrorText('Нужно ввести ключевое слово');
+    } else {
+      onSearch(query.query);
     }
   }
+
+  useEffect(() => {
+    setErrorText('');
+  }, [query]);
 
   return (
     <section className="search-form">
@@ -38,7 +44,7 @@ function SearchForm() {
             value={query.query || ''}
           />
           <button className="search-form__button" aria-label="Поиск" />
-          <span className={`search-form__input-error film-input-error ${!query.isValid && 'search-form__input-error_visible'}`}>
+          <span className="search-form__input-error film-input-error">
             {!query.isValid && errorText}
           </span>
         </label>

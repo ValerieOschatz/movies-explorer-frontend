@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
-// import { movies, savedMovies } from '../../utils/cards';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -13,16 +12,19 @@ import NotFound from '../NotFound/NotFound';
 import Navigation from '../Navigation/Navigation';
 import Footer from '../Footer/Footer';
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
+import { getMovies } from '../../utils/MoviesApi';
+import { filterByQuery } from '../../utils/filter';
 
 function App() {
-  const isLoading = false;
-  const isPositiveAnswer = true;
   const isLoggedIn = false;
 
   const [isNavigationOpen, setNavigationOpen] = useState(false);
   const [isInfoTooltipOpen, setInfoTooltipOpen] = useState(false);
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
+  const [isLoading, setLoading] = useState(false);
+  const [isSuccess, setSuccess] = useState(false);
+  const [infoText, setInfoText] = useState('');
 
   function handleNavigationClick() {
     setNavigationOpen(true);
@@ -36,6 +38,30 @@ function App() {
     setInfoTooltipOpen(false);
   }
 
+  function handleSearch(query) {
+    setLoading(true);
+    getMovies()
+    .then((res) => {
+      const searchedMovies = filterByQuery(res, query);
+      if (searchedMovies.length > 0) {
+        setMovies(searchedMovies);
+      } else {
+        setSuccess(false);
+        setInfoText('Ничего не найдено');
+        setInfoTooltipOpen(true);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      setSuccess(false);
+      setInfoText('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
+      setInfoTooltipOpen(true);
+    })
+    .finally(() => {
+      setLoading(false);
+    })
+  }
+
   return (
     <div className="App">
       <Header onNavigationClick={handleNavigationClick} isLoggedIn={isLoggedIn} />
@@ -46,7 +72,10 @@ function App() {
         </Route>
 
         <Route path="/movies">
-          <Movies isLoading={isLoading} cards={movies} />
+          <Movies
+            isLoading={isLoading}
+            cards={movies}
+            onSearch={handleSearch} />
         </Route>
 
         <Route path="/saved-movies">
@@ -72,7 +101,11 @@ function App() {
 
       <Footer />
       <Navigation isOpen={isNavigationOpen} onClose={closeNavigation} />
-      <InfoTooltip isOpen={isInfoTooltipOpen} isPositiveAnswer={isPositiveAnswer} onClose={closeInfoTooltip} />
+      <InfoTooltip
+        isOpen={isInfoTooltipOpen}
+        isSuccess={isSuccess}
+        infoText={infoText}
+        onClose={closeInfoTooltip} />
     </div>
   );
 }

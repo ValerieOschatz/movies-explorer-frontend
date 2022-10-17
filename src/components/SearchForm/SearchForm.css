@@ -84,11 +84,6 @@
   font-size: 18px;
   line-height: 1.11;
   color: #EE3465;
-  display: none;
-}
-
-.search-form__input-error_visible {
-  display: block;
 }
 
 @media screen and (max-width: 1023px) {

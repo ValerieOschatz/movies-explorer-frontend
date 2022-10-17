@@ -6,10 +6,12 @@ function MoviesCard({ card }) {
   return (
     <li className="movies-card">
       <div className="movies-card__container">
-        <h2 className="movies-card__title">В погоне за Бенкси</h2>
-        <p className="movies-card__duration">27 минут</p>
+        <h2 className="movies-card__title">{card.nameRU}</h2>
+        <p className="movies-card__duration">{card.duration}</p>
       </div>
-      <img className="movies-card__image" src={card.image} alt="Картинка фильма" />
+      <a href={card.trailerLink} target="_blank" rel="noreferrer">
+        <img className="movies-card__image" src={`https://api.nomoreparties.co/${card.image.url}`} alt="Картинка фильма" />
+      </a>
       <button className={buttonClassName} type="button" disabled={card.isSaved && true}>{card.isSaved || card.isChoosed ? "" : "Сохранить"}</button>
     </li>
   );
