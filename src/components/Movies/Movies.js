@@ -9,7 +9,7 @@ function Movies({ isLoading, cards }) {
       <SearchForm />
       {isLoading && <Preloader />}
       <MoviesCardList cards={cards} />
-      <button className="movies__button">Ещё</button>
+      {cards.length > 0 && <button className="movies__button">Ещё</button>}
     </main>
   );
 }

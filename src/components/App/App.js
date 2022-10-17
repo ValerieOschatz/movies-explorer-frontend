@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import CurrentUserContext from '../contexts/CurrentUserContext';
 import './App.css';
-import { movies, savedMovies } from '../../utils/cards';
+// import { movies, savedMovies } from '../../utils/cards';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -19,8 +18,11 @@ function App() {
   const isLoading = false;
   const isPositiveAnswer = true;
   const isLoggedIn = false;
+
   const [isNavigationOpen, setNavigationOpen] = useState(false);
   const [isInfoTooltipOpen, setInfoTooltipOpen] = useState(false);
+  const [movies, setMovies] = useState([]);
+  const [savedMovies, setSavedMovies] = useState([]);
 
   function handleNavigationClick() {
     setNavigationOpen(true);
