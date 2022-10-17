@@ -16,7 +16,7 @@ export const register = (name, email, password) => {
     body: JSON.stringify({ name, email, password })
   })
   .then((res) => checkServerRes(res));
-};
+}
 
 export const login = (email, password) => {
   return fetch(`${BASE_URL}/signin`, {
@@ -28,7 +28,7 @@ export const login = (email, password) => {
     body: JSON.stringify({ email, password })
   })
   .then((res) => checkServerRes(res));
-};
+}
 
 export const logout = () => {
   return fetch(`${BASE_URL}/signout`, {
@@ -39,7 +39,7 @@ export const logout = () => {
     credentials: 'include'
   })
   .then((res) => checkServerRes(res));
-};
+}
 
 export const getCurrentUser = () => {
   return fetch(`${BASE_URL}/users/me`, {
@@ -50,7 +50,7 @@ export const getCurrentUser = () => {
     credentials: 'include'
   })
   .then((res) => checkServerRes(res));
-};
+}
 
 export const updateUser = (name, email) => {
   return fetch(`${BASE_URL}/users/me`, {
@@ -62,9 +62,9 @@ export const updateUser = (name, email) => {
     body: JSON.stringify({ name, email })
   })
   .then((res) => checkServerRes(res));
-};
+}
 
-export const getMovies = () => {
+export const getSavedMovies = () => {
   return fetch(`${BASE_URL}/movies`, {
     method: 'GET',
     headers: {
@@ -73,7 +73,7 @@ export const getMovies = () => {
     credentials: 'include'
   })
   .then((res) => checkServerRes(res));
-};
+}
 
 export const createMovie = (country, director, duration, year, description, image, trailerLink, thumbnail, movieId, nameRU, nameEN) => {
   return fetch(`${BASE_URL}/movies`, {
@@ -97,7 +97,7 @@ export const createMovie = (country, director, duration, year, description, imag
     })
   })
   .then((res) => checkServerRes(res));
-};
+}
 
 export const deleteMovie = (movieId) => {
   return fetch(`${BASE_URL}/movies/${movieId}`, {
@@ -108,4 +108,4 @@ export const deleteMovie = (movieId) => {
     credentials: 'include'
   })
   .then((res) => checkServerRes(res));
-};
+}
