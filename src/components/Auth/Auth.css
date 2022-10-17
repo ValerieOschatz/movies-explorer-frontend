@@ -1,0 +1,159 @@
+.auth {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  padding: 70px 0;
+}
+
+.auth__logo {
+  width: 37px;
+  height: 37px;
+  transition: opacity .3s ease-out;
+}
+
+.auth__logo:hover {
+  opacity: .6;
+}
+
+.auth__title {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.21;
+  margin: 35px 0 40px;
+}
+
+.auth__form {
+  width: 396px;
+  display: flex;
+  flex-direction: column;
+}
+
+.auth__form-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 23px;
+  position: relative;
+}
+
+.auth__input-text {
+  font-size: 10px;
+  line-height: 1,2;
+  color: #A0A0A0;
+  margin-bottom: 8px;
+}
+
+.auth__input {
+  padding: 16px 15px 14px;
+  border: none;
+  background-color: #F9F9F9;
+  font-size: 13px;
+  line-height: 1.23;
+  box-sizing: border-box;
+}
+
+.auth__input:focus {
+  outline: 1px solid #979797;
+}
+
+.auth__input_type_error {
+  color: #EE3465;
+}
+
+.auth__input-error {
+  position: absolute;
+  bottom: -23px;
+  font-size: 10px;
+  line-height: 1.2;
+  color: #EE3465;
+  display: none;
+}
+
+.auth__input-error_visible {
+  display: block;
+}
+
+.auth__submit-button {
+  border: none;
+  height: 45px;
+  margin-top: 68px;
+  background: #2BE080;
+  border-radius: 3px;
+  font-size: 14px;
+  line-height: 1.21;
+  color: #fff;
+  cursor: pointer;
+  transition: opacity .3s ease-out;
+}
+
+.auth__submit-button:hover {
+  opacity: .6;
+}
+
+.auth__submit-button_type_login {
+  margin-top: 155px;
+}
+
+.auth__text {
+  text-align: center;
+  margin: 0;
+  margin-top: 16px;
+  font-size: 14px;
+  line-height: 1.21;
+  color: #A0A0A0;
+}
+
+.auth__link {
+  text-decoration: none;
+  color: #2BE080;
+  margin-left: 6px;
+  transition: opacity .3s ease-out;
+}
+
+.auth__link:hover {
+  opacity: .6;
+}
+
+@media screen and (max-width: 1023px) {
+  .auth {
+    padding: 232px 0;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .auth {
+    padding: 120px 0;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .auth {
+    padding: 56px 0 30px;
+    width: 100%;
+    align-items: center;
+  }
+
+  .auth__form {
+    width: calc(100% - 30px * 2);
+  }
+
+  .auth__title {
+    text-align: center;
+    margin: 44px 0 83px;
+  }
+
+  .auth__submit-button {
+    margin-top: 156px;
+    font-size: 12px;
+    line-height: 1.25;
+  }
+
+  .auth__submit-button_type_login {
+    margin-top: 244px;
+  }
+
+  .auth__text {
+    margin-top: 14px;
+    font-size: 12px;
+    line-height: 1.25;
+  }
+}
