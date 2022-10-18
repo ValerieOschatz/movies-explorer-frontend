@@ -54,8 +54,10 @@ function App() {
         searchedMovies = filterByQuery(res, query);
       }
       if (searchedMovies.length > 0) {
-        console.log(searchedMovies);
         setMovies(searchedMovies);
+        localStorage.setItem('query', query);
+        localStorage.setItem('movies', searchedMovies);
+        localStorage.setItem('checkbox', isChecked);
       } else {
         setSuccess(false);
         setInfoText('Ничего не найдено');

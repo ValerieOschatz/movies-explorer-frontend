@@ -8,24 +8,6 @@
   padding-bottom: 79px;
 }
 
-.movies__button {
-  align-self: center;
-  width: 320px;
-  height: 36px;
-  background-color: #fff;
-  border: 1px solid #E8E8E8;
-  cursor: pointer;
-  transition: opacity .3s ease-out;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 1.25;
-  border-radius: 6px;
-}
-
-.movies__button:hover {
-  opacity: .6;
-}
-
 @media screen and (max-width: 1279px) {
   .movies {
     width: calc(100% - 30px * 2);
@@ -35,9 +17,5 @@
 @media screen and (max-width: 524px) {
   .movies {
     width: calc(100% - 10px * 2);
-  }
-
-  .movies__button {
-    width: 240px;
   }
 }

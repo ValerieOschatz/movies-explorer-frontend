@@ -9,7 +9,6 @@ function Movies({ isLoading, cards, onSearch, isChecked, onCheck }) {
       <SearchForm onSearch={onSearch} isChecked={isChecked} onCheck={onCheck} />
       {isLoading && <Preloader />}
       <MoviesCardList cards={cards} />
-      {cards.length > 0 && <button className="movies__button">Ещё</button>}
     </main>
   );
 }
