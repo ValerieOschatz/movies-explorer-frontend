@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-function SearchForm({ onSearch }) {
+function SearchForm({ onSearch, isChecked, onCheck }) {
   const [query, setQuery] = useState({ query: '', isValid: false });
   const [errorText, setErrorText] = useState('');
 
@@ -48,7 +48,7 @@ function SearchForm({ onSearch }) {
             {!query.isValid && errorText}
           </span>
         </label>
-        <FilterCheckbox />
+        <FilterCheckbox isChecked={isChecked} onCheck={onCheck} />
       </form>
     </section>
   );

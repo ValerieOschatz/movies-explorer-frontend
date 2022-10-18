@@ -13,7 +13,7 @@ import Navigation from '../Navigation/Navigation';
 import Footer from '../Footer/Footer';
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
 import { getMovies } from '../../utils/MoviesApi';
-import { filterByQuery } from '../../utils/filter';
+import { filterByQuery, filterByDuration } from '../../utils/filter';
 
 function App() {
   const isLoggedIn = false;
@@ -25,6 +25,7 @@ function App() {
   const [isLoading, setLoading] = useState(false);
   const [isSuccess, setSuccess] = useState(false);
   const [infoText, setInfoText] = useState('');
+  const [isChecked, setChecked] = useState(false);
 
   function handleNavigationClick() {
     setNavigationOpen(true);
@@ -38,12 +39,22 @@ function App() {
     setInfoTooltipOpen(false);
   }
 
+  function handleCheck() {
+    setChecked(!isChecked);
+  }
+
   function handleSearch(query) {
     setLoading(true);
     getMovies()
     .then((res) => {
-      const searchedMovies = filterByQuery(res, query);
+      let searchedMovies;
+      if (isChecked) {
+        searchedMovies = filterByDuration(filterByQuery(res, query));
+      } else {
+        searchedMovies = filterByQuery(res, query);
+      }
       if (searchedMovies.length > 0) {
+        console.log(searchedMovies);
         setMovies(searchedMovies);
       } else {
         setSuccess(false);
@@ -75,7 +86,9 @@ function App() {
           <Movies
             isLoading={isLoading}
             cards={movies}
-            onSearch={handleSearch} />
+            onSearch={handleSearch}
+            isChecked={isChecked}
+            onCheck={handleCheck} />
         </Route>
 
         <Route path="/saved-movies">
