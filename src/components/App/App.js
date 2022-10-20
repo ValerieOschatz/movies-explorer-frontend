@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import './App.css';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -20,12 +20,16 @@ function App() {
 
   const [isNavigationOpen, setNavigationOpen] = useState(false);
   const [isInfoTooltipOpen, setInfoTooltipOpen] = useState(false);
+  const [query, setQuery] = useState({ query: '', isValid: false });
   const [movies, setMovies] = useState([]);
+  const [searchedMovies, setSearchedMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [isSuccess, setSuccess] = useState(false);
   const [infoText, setInfoText] = useState('');
   const [isChecked, setChecked] = useState(false);
+  const history = useHistory();
+  const location = useLocation();
 
   function handleNavigationClick() {
     setNavigationOpen(true);
@@ -43,26 +47,40 @@ function App() {
     setChecked(!isChecked);
   }
 
-  function handleSearch(query) {
+  function handleChangeQuery(evt) {
+    setQuery({ query: evt.target.value, isValid: evt.target.validity.valid });
+  }
+
+  function handleSearchMovies(query) {
+    if (movies.length === 0) {
+      getMoviesList();
+    }
+
+    let resultMovies;
+    resultMovies = filterByQuery(movies, query);
+    if (isChecked) {
+      resultMovies = filterByDuration(filterByQuery(movies, query));
+    }
+
+    if (resultMovies.length > 0) {
+      setSearchedMovies(resultMovies);
+      localStorage.setItem('searchedMovies', JSON.stringify(resultMovies));
+      localStorage.setItem('query', query);
+      localStorage.setItem('checkbox', JSON.stringify(isChecked));
+    } else {
+      setSuccess(false);
+      setInfoText('Ничего не найдено');
+      setInfoTooltipOpen(true);
+    }
+  }
+
+  function getMoviesList() {
     setLoading(true);
     getMovies()
     .then((res) => {
-      let searchedMovies;
-      if (isChecked) {
-        searchedMovies = filterByDuration(filterByQuery(res, query));
-      } else {
-        searchedMovies = filterByQuery(res, query);
-      }
-      if (searchedMovies.length > 0) {
-        setMovies(searchedMovies);
-        localStorage.setItem('query', query);
-        localStorage.setItem('movies', searchedMovies);
-        localStorage.setItem('checkbox', isChecked);
-      } else {
-        setSuccess(false);
-        setInfoText('Ничего не найдено');
-        setInfoTooltipOpen(true);
-      }
+      setMovies(res);
+      console.log(movies);
+      localStorage.setItem('movies', JSON.stringify(res));
     })
     .catch((err) => {
       console.log(err);
@@ -74,6 +92,13 @@ function App() {
       setLoading(false);
     })
   }
+
+  useEffect(() => {
+    setQuery({ query: localStorage.getItem('query'), isValid: true });
+    setMovies(JSON.parse(localStorage.getItem('movies')));
+    setSearchedMovies(JSON.parse(localStorage.getItem('searchedMovies')));
+    setChecked(JSON.parse(localStorage.getItem('checkbox')));
+  }, []);
 
   return (
     <div className="App">
@@ -87,10 +112,12 @@ function App() {
         <Route path="/movies">
           <Movies
             isLoading={isLoading}
-            cards={movies}
-            onSearch={handleSearch}
+            cards={searchedMovies}
+            onSearchMovies={handleSearchMovies}
             isChecked={isChecked}
-            onCheck={handleCheck} />
+            onCheck={handleCheck}
+            query={query}
+            onChangeQuery={handleChangeQuery} />
         </Route>
 
         <Route path="/saved-movies">

@@ -2,13 +2,8 @@ import { useState, useEffect } from 'react';
 import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-function SearchForm({ onSearch, isChecked, onCheck }) {
-  const [query, setQuery] = useState({ query: '', isValid: false });
+function SearchForm({ isChecked, onCheck, onSearchMovies, query, onChangeQuery }) {
   const [errorText, setErrorText] = useState('');
-
-  function handleChangeQuery(evt) {
-    setQuery({ query: evt.target.value, isValid: evt.target.validity.valid });
-  }
 
   function handleSubmit(evt) {
     evt.preventDefault();
@@ -16,7 +11,7 @@ function SearchForm({ onSearch, isChecked, onCheck }) {
     if (!query.isValid) {
       setErrorText('Нужно ввести ключевое слово');
     } else {
-      onSearch(query.query);
+      onSearchMovies(query.query);
     }
   }
 
@@ -40,7 +35,7 @@ function SearchForm({ onSearch, isChecked, onCheck }) {
             name="film-input"
             placeholder="Фильм"
             required
-            onChange={handleChangeQuery}
+            onChange={onChangeQuery}
             value={query.query || ''}
           />
           <button className="search-form__button" aria-label="Поиск" />
@@ -48,7 +43,7 @@ function SearchForm({ onSearch, isChecked, onCheck }) {
             {!query.isValid && errorText}
           </span>
         </label>
-        <FilterCheckbox isChecked={isChecked} onCheck={onCheck} />
+        <FilterCheckbox isChecked={isChecked} onCheck={onCheck} onSearchMovies={onSearchMovies} query={query}  />
       </form>
     </section>
   );

@@ -3,7 +3,7 @@ const tabletCards = 8;
 const mobileCards = 5;
 const desktopLoadedCards = 3;
 const tabletMobileLoadedCards = 2;
-const desktopMinWidth = 1200;
+const desktopMinWidth = 1225;
 const tabletMinWidth = 793;
 
 export {

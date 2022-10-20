@@ -20,7 +20,10 @@ function MoviesCardList({ cards }) {
   
   useEffect(() => {
     function defineWidth() {
-      setWidth(window.innerWidth);
+      let timer = setTimeout(() => {
+        clearTimeout(timer);
+        setWidth(window.innerWidth);
+      }, 2000);
     }
 
     window.addEventListener("resize", defineWidth);
@@ -28,7 +31,7 @@ function MoviesCardList({ cards }) {
     return () => {
       window.removeEventListener("resize", defineWidth);
     }
-  }, []);
+  }, [cards]);
 
   useEffect(() => {
     if (width >= desktopMinWidth) {
@@ -44,8 +47,10 @@ function MoviesCardList({ cards }) {
   }, [width]);
 
   useEffect(() => {
-    setRenderedCards(cards.slice(0, initialCardsCount));
-  }, [cards, initialCardsCount]);
+    if (renderedCards.length <= desktopCards) {
+      setRenderedCards(cards.slice(0, initialCardsCount));
+    }
+  }, [cards, initialCardsCount, renderedCards.length]);
 
   function handleAddCards() {
     const cardsCount = renderedCards.length;

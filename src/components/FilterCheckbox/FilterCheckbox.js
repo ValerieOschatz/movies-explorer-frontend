@@ -1,6 +1,10 @@
 import './FilterCheckbox.css';
 
-function FilterCheckbox({ isChecked, onCheck }) {
+function FilterCheckbox({ isChecked, onCheck, onSearchMovies, query }) {
+  function handleChange() {
+    onSearchMovies(query.query);
+  }
+
   return (
     <label className="filter-checkbox">
       <input
@@ -9,7 +13,8 @@ function FilterCheckbox({ isChecked, onCheck }) {
         id="film-checkbox"
         name="film-checkbox"
         checked={isChecked}
-        onChange={onCheck} />
+        onChange={onCheck}
+        onInput={handleChange} />
       <span className="filter-checkbox__visible" />
       Короткометражки
     </label>
