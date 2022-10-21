@@ -11,7 +11,7 @@ function SearchForm({ isChecked, onCheck, onSearchMovies, query, onChangeQuery }
     if (!query.isValid) {
       setErrorText('Нужно ввести ключевое слово');
     } else {
-      onSearchMovies(query.query);
+      onSearchMovies(query.value);
     }
   }
 
@@ -36,14 +36,19 @@ function SearchForm({ isChecked, onCheck, onSearchMovies, query, onChangeQuery }
             placeholder="Фильм"
             required
             onChange={onChangeQuery}
-            value={query.query || ''}
+            value={query.value || ''}
           />
           <button className="search-form__button" aria-label="Поиск" />
-          <span className="search-form__input-error film-input-error">
+          <span className="search-form__input-error">
             {!query.isValid && errorText}
           </span>
         </label>
-        <FilterCheckbox isChecked={isChecked} onCheck={onCheck} onSearchMovies={onSearchMovies} query={query}  />
+        <FilterCheckbox
+          isChecked={isChecked}
+          onCheck={onCheck}
+          onSearchMovies={onSearchMovies}
+          query={query}
+        />
       </form>
     </section>
   );

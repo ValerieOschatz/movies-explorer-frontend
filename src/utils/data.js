@@ -13,5 +13,5 @@ export {
   desktopLoadedCards,
   tabletMobileLoadedCards,
   desktopMinWidth,
-  tabletMinWidth
+  tabletMinWidth,
 }

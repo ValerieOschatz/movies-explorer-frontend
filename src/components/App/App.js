@@ -20,7 +20,7 @@ function App() {
 
   const [isNavigationOpen, setNavigationOpen] = useState(false);
   const [isInfoTooltipOpen, setInfoTooltipOpen] = useState(false);
-  const [query, setQuery] = useState({ query: '', isValid: false });
+  const [query, setQuery] = useState({ value: '', isValid: false });
   const [movies, setMovies] = useState([]);
   const [searchedMovies, setSearchedMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
@@ -47,8 +47,8 @@ function App() {
     setChecked(!isChecked);
   }
 
-  function handleChangeQuery(evt) {
-    setQuery({ query: evt.target.value, isValid: evt.target.validity.valid });
+  function handleChangeQuery(e) {
+    setQuery({ value: e.target.value, isValid: e.target.validity.valid });
   }
 
   function handleSearchMovies(query) {
@@ -79,7 +79,6 @@ function App() {
     getMovies()
     .then((res) => {
       setMovies(res);
-      console.log(movies);
       localStorage.setItem('movies', JSON.stringify(res));
     })
     .catch((err) => {
@@ -94,7 +93,7 @@ function App() {
   }
 
   useEffect(() => {
-    setQuery({ query: localStorage.getItem('query'), isValid: true });
+    setQuery({ value: localStorage.getItem('query'), isValid: true });
     setMovies(JSON.parse(localStorage.getItem('movies')));
     setSearchedMovies(JSON.parse(localStorage.getItem('searchedMovies')));
     setChecked(JSON.parse(localStorage.getItem('checkbox')));

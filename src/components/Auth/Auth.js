@@ -8,7 +8,7 @@ function Auth({ name, children}) {
       <Link to="/">
         <img className="auth__logo" src={logo} alt="Логотип" />
       </Link>
-      <form className='auth__form' name={name}>
+      <form className='auth__form' name={name} noValidate>
         {children}
       </form>
     </div>
