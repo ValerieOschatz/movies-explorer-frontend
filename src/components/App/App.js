@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
 import './App.css';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -12,12 +13,16 @@ import NotFound from '../NotFound/NotFound';
 import Navigation from '../Navigation/Navigation';
 import Footer from '../Footer/Footer';
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
-import { getMovies } from '../../utils/MoviesApi';
 import { filterByQuery, filterByDuration } from '../../utils/filter';
+import { getMovies } from '../../utils/MoviesApi';
+import {
+  register,
+  login,
+  logout,
+  getCurrentUser
+} from '../../utils/MainApi';
 
 function App() {
-  const isLoggedIn = false;
-
   const [isNavigationOpen, setNavigationOpen] = useState(false);
   const [isInfoTooltipOpen, setInfoTooltipOpen] = useState(false);
   const [query, setQuery] = useState({ value: '', isValid: false });
@@ -28,8 +33,9 @@ function App() {
   const [isSuccess, setSuccess] = useState(false);
   const [infoText, setInfoText] = useState('');
   const [isChecked, setChecked] = useState(false);
+  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState({});
   const history = useHistory();
-  const location = useLocation();
 
   function handleNavigationClick() {
     setNavigationOpen(true);
@@ -93,61 +99,133 @@ function App() {
   }
 
   useEffect(() => {
-    setQuery({ value: localStorage.getItem('query'), isValid: true });
-    setMovies(JSON.parse(localStorage.getItem('movies')));
-    setSearchedMovies(JSON.parse(localStorage.getItem('searchedMovies')));
-    setChecked(JSON.parse(localStorage.getItem('checkbox')));
+    if (localStorage.getItem('movies')) {
+      setMovies(JSON.parse(localStorage.getItem('movies')));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (localStorage.getItem('query') && localStorage.getItem('searchedMovies') && localStorage.getItem('checkbox')) {
+      setQuery({ value: localStorage.getItem('query'), isValid: true });
+      setSearchedMovies(JSON.parse(localStorage.getItem('searchedMovies')));
+      setChecked(JSON.parse(localStorage.getItem('checkbox')));
+    }
+  }, []);
+
+  function handleRegister(name, email, password) {
+    register(name, email, password)
+    .then((res) => {
+      if (res) {
+        handleLogin(email, password);
+        setInfoTooltipOpen(true);
+        setSuccess(true);
+        setInfoText('Вы успешно зарегистрировались!');
+      }
+    })
+    .catch((err) => {
+      setInfoTooltipOpen(true);
+      setSuccess(false);
+      setInfoText(err);
+      console.log(err);
+    })
+  }
+
+  function handleLogin(email, password) {
+    login(email, password)
+    .then((res) => {
+      if (res.token) {
+        console.log(res);
+        setLoggedIn(true);
+        setCurrentUser(res);
+        history.push('/movies');
+      }
+    })
+    .catch((err) => {
+      setInfoTooltipOpen(true);
+      setSuccess(false);
+      setInfoText(err);
+      console.log(err);
+    })
+  }
+
+  function handleSignOut(){
+    logout()
+    .then(() => {
+      setLoggedIn(false);
+      localStorage.removeItem('query');
+      localStorage.removeItem('movies');
+      localStorage.removeItem('searchedMovies');
+      localStorage.removeItem('checkbox');
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+
+  useEffect(() => {
+    getCurrentUser()
+    .then((res) => {
+      if (res) {
+        setLoggedIn(true);
+        setCurrentUser(res);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    })
   }, []);
 
   return (
-    <div className="App">
-      <Header onNavigationClick={handleNavigationClick} isLoggedIn={isLoggedIn} />
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="App">
+        <Header onNavigationClick={handleNavigationClick} isLoggedIn={isLoggedIn} />
 
-      <Switch>
-        <Route exact path="/">
-          <Main />
-        </Route>
+        <Switch>
+          <Route exact path="/">
+            <Main />
+          </Route>
 
-        <Route path="/movies">
-          <Movies
-            isLoading={isLoading}
-            cards={searchedMovies}
-            onSearchMovies={handleSearchMovies}
-            isChecked={isChecked}
-            onCheck={handleCheck}
-            query={query}
-            onChangeQuery={handleChangeQuery} />
-        </Route>
+          <Route path="/movies">
+            <Movies
+              isLoading={isLoading}
+              cards={searchedMovies}
+              onSearchMovies={handleSearchMovies}
+              isChecked={isChecked}
+              onCheck={handleCheck}
+              query={query}
+              onChangeQuery={handleChangeQuery} />
+          </Route>
 
-        <Route path="/saved-movies">
-          <SavedMovies cards={savedMovies} />
-        </Route>
+          <Route path="/saved-movies">
+            <SavedMovies cards={savedMovies} />
+          </Route>
 
-        <Route path="/profile">
-          <Profile />
-        </Route>
+          <Route path="/profile">
+            <Profile onSignOut={handleSignOut} />
+          </Route>
 
-        <Route path="/signup">
-          <Register />
-        </Route>
+          <Route path="/signup">
+            <Register onRegister={handleRegister} />
+          </Route>
 
-        <Route path="/signin">
-          <Login />
-        </Route>
+          <Route path="/signin">
+            <Login onLogin={handleLogin} />
+          </Route>
 
-        <Route path="*">
-          <NotFound />
-        </Route>
-      </Switch>
+          <Route path="*">
+            <NotFound />
+          </Route>
+        </Switch>
 
-      <Footer />
-      <Navigation isOpen={isNavigationOpen} onClose={closeNavigation} />
-      <InfoTooltip
-        isOpen={isInfoTooltipOpen}
-        isSuccess={isSuccess}
-        infoText={infoText}
-        onClose={closeInfoTooltip} />
-    </div>
+        <Footer />
+        <Navigation isOpen={isNavigationOpen} onClose={closeNavigation} />
+        <InfoTooltip
+          isOpen={isInfoTooltipOpen}
+          isSuccess={isSuccess}
+          infoText={infoText}
+          onClose={closeInfoTooltip} />
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 
