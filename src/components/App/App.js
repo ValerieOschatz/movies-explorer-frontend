@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Route, Switch, useHistory } from 'react-router-dom';
+import { Route, Switch, useHistory, Redirect } from 'react-router-dom';
 import './App.css';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -150,10 +151,10 @@ function App() {
 
   function handleSignOut(){
     logout()
-    .then(() => {
+    .then((res) => {
+      console.log(res);
       setLoggedIn(false);
       localStorage.removeItem('query');
-      localStorage.removeItem('movies');
       localStorage.removeItem('searchedMovies');
       localStorage.removeItem('checkbox');
     })
@@ -168,6 +169,7 @@ function App() {
       if (res) {
         setLoggedIn(true);
         setCurrentUser(res);
+        history.push('/movies');
       }
     })
     .catch((err) => {
@@ -185,24 +187,32 @@ function App() {
             <Main />
           </Route>
 
-          <Route path="/movies">
-            <Movies
-              isLoading={isLoading}
-              cards={searchedMovies}
-              onSearchMovies={handleSearchMovies}
-              isChecked={isChecked}
-              onCheck={handleCheck}
-              query={query}
-              onChangeQuery={handleChangeQuery} />
-          </Route>
+          <ProtectedRoute
+            path="/movies"
+            component={Movies}
+            isLoading={isLoading}
+            cards={searchedMovies}
+            onSearchMovies={handleSearchMovies}
+            isChecked={isChecked}
+            onCheck={handleCheck}
+            query={query}
+            onChangeQuery={handleChangeQuery}
+            isLoggedIn={isLoggedIn}
+          />
 
-          <Route path="/saved-movies">
-            <SavedMovies cards={savedMovies} />
-          </Route>
+          <ProtectedRoute
+            path="/saved-movies"
+            component={SavedMovies}
+            cards={savedMovies}
+            isLoggedIn={isLoggedIn}
+          />
 
-          <Route path="/profile">
-            <Profile onSignOut={handleSignOut} />
-          </Route>
+          <ProtectedRoute
+            path="/profile"
+            component={Profile}
+            onSignOut={handleSignOut}
+            isLoggedIn={isLoggedIn}
+          />
 
           <Route path="/signup">
             <Register onRegister={handleRegister} />

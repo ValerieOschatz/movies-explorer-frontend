@@ -1,4 +1,5 @@
 const BASE_URL = 'https://api.vo.movies-explorer.nomoredomains.icu';
+// const BASE_URL = 'http://localhost:3001';
 
 function checkServerRes(res) {
   if (res.ok) {
