@@ -1,11 +1,12 @@
 const BASE_URL = 'https://api.vo.movies-explorer.nomoredomains.icu';
 // const BASE_URL = 'http://localhost:3001';
 
-function checkServerRes(res) {
+async function checkServerRes(res) {
+  const data = await res.json();
   if (res.ok) {
-    return res.json();
+    return data;
   }
-  return Promise.reject(`Ошибка: ${res.status}`);
+  return Promise.reject(data.message);
 }
 
 export const register = (name, email, password) => {

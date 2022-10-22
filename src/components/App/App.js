@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Route, Switch, useHistory, Redirect } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
 import './App.css';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
@@ -20,7 +20,8 @@ import {
   register,
   login,
   logout,
-  getCurrentUser
+  getCurrentUser,
+  updateUser
 } from '../../utils/MainApi';
 
 function App() {
@@ -135,7 +136,6 @@ function App() {
     login(email, password)
     .then((res) => {
       if (res.token) {
-        console.log(res);
         setLoggedIn(true);
         setCurrentUser(res);
         history.push('/movies');
@@ -152,11 +152,11 @@ function App() {
   function handleSignOut(){
     logout()
     .then((res) => {
-      console.log(res);
       setLoggedIn(false);
       localStorage.removeItem('query');
       localStorage.removeItem('searchedMovies');
       localStorage.removeItem('checkbox');
+      localStorage.removeItem('movies');
     })
     .catch((err) => {
       console.log(err);
@@ -175,7 +175,23 @@ function App() {
     .catch((err) => {
       console.log(err);
     })
-  }, []);
+  }, [history]);
+
+  function handleUpdateUser(name, email) {
+    updateUser(name, email)
+    .then((res) => {
+      setCurrentUser(res);
+      setInfoTooltipOpen(true);
+      setSuccess(true);
+      setInfoText('Данные успешно отредактированы');
+    })
+    .catch((err) => {
+      setInfoTooltipOpen(true);
+      setSuccess(false);
+      setInfoText(err);
+      console.log(err);
+    })
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -204,6 +220,11 @@ function App() {
             path="/saved-movies"
             component={SavedMovies}
             cards={savedMovies}
+            onSearchMovies={handleSearchMovies}
+            isChecked={isChecked}
+            onCheck={handleCheck}
+            query={query}
+            onChangeQuery={handleChangeQuery}
             isLoggedIn={isLoggedIn}
           />
 
@@ -212,6 +233,7 @@ function App() {
             component={Profile}
             onSignOut={handleSignOut}
             isLoggedIn={isLoggedIn}
+            onUpdateUser={handleUpdateUser}
           />
 
           <Route path="/signup">
