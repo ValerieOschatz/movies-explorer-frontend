@@ -35,7 +35,7 @@ function Profile({ onSignOut, onUpdateUser }) {
 
   return (
     <div className="profile">
-      <h2 className="profile__title">Привет, Виталий!</h2>
+      <h2 className="profile__title">{`Привет, ${currentUser.name}!`}</h2>
       <form className="profile__form" name="profile" onSubmit={handleSubmit}>
         <label className="profile__form-field">
           <span className="profile__input-error profile-name-input-error">{!name.isValid && name.errorText}</span>

@@ -5,6 +5,10 @@
   padding: 70px 0;
 }
 
+.auth__logo-link {
+  align-self: flex-start;
+}
+
 .auth__logo {
   width: 37px;
   height: 37px;

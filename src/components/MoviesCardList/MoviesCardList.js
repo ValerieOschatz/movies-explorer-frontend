@@ -12,7 +12,7 @@ import {
   tabletMinWidth
 } from '../../utils/data';
 
-function MoviesCardList({ cards }) {
+function MoviesCardList({ cards, isNotFound }) {
   const [renderedCards, setRenderedCards] = useState([]);
   const [initialCardsCount, setInitialCardsCount] = useState(0);
   const [addedCardsCount, setAddedCardsCount] = useState(0);
@@ -62,12 +62,15 @@ function MoviesCardList({ cards }) {
 
   return (
     <section className="movies-cardlist">
-      <ul className="movies-cardlist__list">
+      <span className="movies-cardlist__not-found">{isNotFound}</span>
+      {!isNotFound && (
+        <ul className="movies-cardlist__list">
         {renderedCards.map((card) => (
           <MoviesCard key={card.id}
           card={card} />
         ))}
       </ul>
+      )}
       {renderedCards.length > 0 && renderedCards.length !== cards.length &&
         <button className="movies-cardlist__button" onClick={handleAddCards}>Ещё</button>}
     </section>

@@ -1,8 +1,8 @@
 import './FilterCheckbox.css';
 
-function FilterCheckbox({ isChecked, onCheck, onSearchMovies, query }) {
+function FilterCheckbox({ isChecked, onCheck, onSearchShortMovies, query }) {
   function handleChange() {
-    onSearchMovies(query.value);
+    onSearchShortMovies(query.value);
   }
 
   return (

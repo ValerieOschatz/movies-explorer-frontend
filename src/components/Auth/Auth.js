@@ -5,7 +5,7 @@ import logo from '../../images/logo.svg';
 function Auth({ name, children, onSubmit}) {
   return (
     <div className="auth">
-      <Link to="/">
+      <Link className="auth__logo-link" to="/">
         <img className="auth__logo" src={logo} alt="Логотип" />
       </Link>
       <form className='auth__form' name={name} noValidate onSubmit={onSubmit}>

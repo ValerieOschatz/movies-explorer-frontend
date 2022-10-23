@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-function SearchForm({ isChecked, onCheck, onSearchMovies, query, onChangeQuery }) {
+function SearchForm({ isChecked, onCheck, onSearchMovies, onSearchShortMovies, query, onChangeQuery }) {
   const [errorText, setErrorText] = useState('');
 
   function handleSubmit(evt) {
@@ -46,7 +46,7 @@ function SearchForm({ isChecked, onCheck, onSearchMovies, query, onChangeQuery }
         <FilterCheckbox
           isChecked={isChecked}
           onCheck={onCheck}
-          onSearchMovies={onSearchMovies}
+          onSearchShortMovies={onSearchShortMovies}
           query={query}
         />
       </form>

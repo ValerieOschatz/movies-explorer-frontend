@@ -34,6 +34,7 @@ function App() {
   const [isLoading, setLoading] = useState(false);
   const [isSuccess, setSuccess] = useState(false);
   const [infoText, setInfoText] = useState('');
+  const [isNotFound, setNotFound] = useState('');
   const [isChecked, setChecked] = useState(false);
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
@@ -59,11 +60,7 @@ function App() {
     setQuery({ value: e.target.value, isValid: e.target.validity.valid });
   }
 
-  function handleSearchMovies(query) {
-    if (movies.length === 0) {
-      getMoviesList();
-    }
-
+  function searchMovies(movies, query) {
     let resultMovies;
     resultMovies = filterByQuery(movies, query);
     if (isChecked) {
@@ -72,6 +69,7 @@ function App() {
 
     if (resultMovies.length > 0) {
       setSearchedMovies(resultMovies);
+      setNotFound('');
       localStorage.setItem('searchedMovies', JSON.stringify(resultMovies));
       localStorage.setItem('query', query);
       localStorage.setItem('checkbox', JSON.stringify(isChecked));
@@ -79,25 +77,38 @@ function App() {
       setSuccess(false);
       setInfoText('Ничего не найдено');
       setInfoTooltipOpen(true);
+      setNotFound('Нет результатов');
     }
   }
 
-  function getMoviesList() {
-    setLoading(true);
-    getMovies()
-    .then((res) => {
-      setMovies(res);
-      localStorage.setItem('movies', JSON.stringify(res));
-    })
-    .catch((err) => {
-      console.log(err);
-      setSuccess(false);
-      setInfoText('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
-      setInfoTooltipOpen(true);
-    })
-    .finally(() => {
-      setLoading(false);
-    })
+  function handleSearchMovies(query) {
+    if (movies.length === 0) {
+      setLoading(true);
+      getMovies()
+      .then((res) => {
+        setMovies(res);
+        localStorage.setItem('movies', JSON.stringify(res));
+        searchMovies(res, query);
+      })
+      .catch((err) => {
+        console.log(err);
+        setSuccess(false);
+        setInfoText('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
+        setInfoTooltipOpen(true);
+      })
+      .finally(() => {
+        setLoading(false);
+      })
+    } else {
+      searchMovies(movies, query);
+    }
+  }
+
+  function handleSearchShortMovies(query) {
+    if (movies.length === 0) {
+      return;
+    }
+    searchMovies(movies, query);
   }
 
   useEffect(() => {
@@ -137,7 +148,6 @@ function App() {
     .then((res) => {
       if (res.token) {
         setLoggedIn(true);
-        setCurrentUser(res);
         history.push('/movies');
       }
     })
@@ -151,8 +161,9 @@ function App() {
 
   function handleSignOut(){
     logout()
-    .then((res) => {
+    .then(() => {
       setLoggedIn(false);
+      setCurrentUser({});
       localStorage.removeItem('query');
       localStorage.removeItem('searchedMovies');
       localStorage.removeItem('checkbox');
@@ -174,8 +185,21 @@ function App() {
     })
     .catch((err) => {
       console.log(err);
+      history.push('/');
     })
   }, [history]);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      getCurrentUser()
+      .then((res) => {
+        setCurrentUser(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    }
+  }, [isLoggedIn]);
 
   function handleUpdateUser(name, email) {
     updateUser(name, email)
@@ -209,11 +233,13 @@ function App() {
             isLoading={isLoading}
             cards={searchedMovies}
             onSearchMovies={handleSearchMovies}
+            onSearchShortMovies={handleSearchShortMovies}
             isChecked={isChecked}
             onCheck={handleCheck}
             query={query}
             onChangeQuery={handleChangeQuery}
             isLoggedIn={isLoggedIn}
+            isNotFound={isNotFound}
           />
 
           <ProtectedRoute
