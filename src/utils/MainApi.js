@@ -78,7 +78,7 @@ export const getSavedMovies = () => {
   .then((res) => checkServerRes(res));
 }
 
-export const createMovie = (country, director, duration, year, description, image, trailerLink, thumbnail, movieId, nameRU, nameEN) => {
+export const createMovie = ({ country, director, duration, year, description, image, trailerLink, thumbnail, movieId, nameRU, nameEN }) => {
   return fetch(`${BASE_URL}/movies`, {
     method: 'POST',
     headers: {

@@ -66,12 +66,6 @@
   background-image: url(../../images/checked.svg);
   background-repeat: no-repeat;
   background-position: center;
-  transition: none;
-  cursor: auto;
-}
-
-.movies-card__button_type_saved:hover {
-  opacity: 1;
 }
 
 .movies-card__button_type_choosed {

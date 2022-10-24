@@ -14,14 +14,17 @@ import NotFound from '../NotFound/NotFound';
 import Navigation from '../Navigation/Navigation';
 import Footer from '../Footer/Footer';
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
-import { filterByQuery, filterByDuration } from '../../utils/filter';
+import { filterByQuery, filterByDuration, findSavedMoviesDelete, findOwnSavedMovies } from '../../utils/filter';
 import { getMovies } from '../../utils/MoviesApi';
 import {
   register,
   login,
   logout,
   getCurrentUser,
-  updateUser
+  updateUser,
+  createMovie,
+  getSavedMovies,
+  deleteMovie
 } from '../../utils/MainApi';
 
 function App() {
@@ -168,6 +171,10 @@ function App() {
       localStorage.removeItem('searchedMovies');
       localStorage.removeItem('checkbox');
       localStorage.removeItem('movies');
+      setMovies([]);
+      setSearchedMovies([]);
+      setQuery('');
+      setChecked(false);
     })
     .catch((err) => {
       console.log(err);
@@ -189,6 +196,22 @@ function App() {
     })
   }, [history]);
 
+  function handleUpdateUser(name, email) {
+    updateUser(name, email)
+    .then((res) => {
+      setCurrentUser(res);
+      setInfoTooltipOpen(true);
+      setSuccess(true);
+      setInfoText('Данные успешно отредактированы');
+    })
+    .catch((err) => {
+      setInfoTooltipOpen(true);
+      setSuccess(false);
+      setInfoText(err);
+      console.log(err);
+    })
+  }
+
   useEffect(() => {
     if (isLoggedIn) {
       getCurrentUser()
@@ -201,13 +224,37 @@ function App() {
     }
   }, [isLoggedIn]);
 
-  function handleUpdateUser(name, email) {
-    updateUser(name, email)
+  useEffect(() => {
+    if (isLoggedIn) {
+      getSavedMovies()
+      .then((res) => {
+        const ownMovies = findOwnSavedMovies(res, currentUser);
+        setSavedMovies(ownMovies);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    }
+  }, [isLoggedIn, currentUser]);
+
+  function handleSaveMovie(card) {
+    createMovie(card)
     .then((res) => {
-      setCurrentUser(res);
+      setSavedMovies([...savedMovies, res]);
+    })
+    .catch((err) => {
       setInfoTooltipOpen(true);
-      setSuccess(true);
-      setInfoText('Данные успешно отредактированы');
+      setSuccess(false);
+      setInfoText(err);
+      console.log(err);
+    })
+  }
+
+  function handleDeleteMovie(card) {
+    deleteMovie(card._id)
+    .then((res) => {
+      const newSavedMovies = findSavedMoviesDelete(savedMovies, card);
+      setSavedMovies(newSavedMovies);
     })
     .catch((err) => {
       setInfoTooltipOpen(true);
@@ -232,6 +279,7 @@ function App() {
             component={Movies}
             isLoading={isLoading}
             cards={searchedMovies}
+            savedMovies={savedMovies}
             onSearchMovies={handleSearchMovies}
             onSearchShortMovies={handleSearchShortMovies}
             isChecked={isChecked}
@@ -240,18 +288,25 @@ function App() {
             onChangeQuery={handleChangeQuery}
             isLoggedIn={isLoggedIn}
             isNotFound={isNotFound}
+            onSaveMovie={handleSaveMovie}
+            onDeleteMovie={handleDeleteMovie}
           />
 
           <ProtectedRoute
             path="/saved-movies"
             component={SavedMovies}
             cards={savedMovies}
-            onSearchMovies={handleSearchMovies}
-            isChecked={isChecked}
-            onCheck={handleCheck}
+            savedMovies={savedMovies}
+            // onSearchMovies={handleSearchMovies}
+            // onSearchShortMovies={handleSearchShortMovies}
+            // isChecked={isChecked}
+            // onCheck={handleCheck}
             query={query}
             onChangeQuery={handleChangeQuery}
             isLoggedIn={isLoggedIn}
+            // isNotFound={isNotFound}
+            // onSaveMovie={handleSaveMovie}
+            onDeleteMovie={handleDeleteMovie}
           />
 
           <ProtectedRoute
