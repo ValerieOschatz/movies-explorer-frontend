@@ -1,19 +1,58 @@
+import { useState, useEffect } from 'react';
 import './SavedMovies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import { filterByQuery, filterByDuration } from '../../utils/filter';
 
-function SavedMovies({ cards, savedMovies, isChecked, onCheck, onSearchMovies, query, onChangeQuery, isNotFound, onDeleteMovie }) {
+function SavedMovies({ cards, savedMovies, onDeleteMovie }) {
+  const [query, setQuery] = useState({ value: '', isValid: false });
+  const [renderedCards, setRenderedCards] = useState([]);
+  const [isChecked, setChecked] = useState(false);
+  const [isNotFound, setNotFound] = useState('');
+
+  function handleCheck() {
+    setChecked(!isChecked);
+  }
+
+  function handleChangeQuery(e) {
+    setQuery({ value: e.target.value, isValid: e.target.validity.valid });
+  }
+
+  function handleSearch(query) {
+    if (cards.length === 0) {
+      return;
+    }
+
+    let resultMovies;
+    if (isChecked) {
+      resultMovies = filterByDuration(filterByQuery(cards, query));
+    } else {
+      resultMovies = filterByQuery(cards, query);
+    }
+
+    if (resultMovies.length > 0) {
+      setRenderedCards(resultMovies);
+      setNotFound('');
+    } else {
+      setNotFound('Нет результатов');
+    }
+  }
+
+  useEffect(() => {
+    setRenderedCards(savedMovies);
+  }, [savedMovies]);
+
   return (
     <main className="saved-movies">
       <SearchForm
-        onSearchMovies={onSearchMovies}
-        onSearchShortMovies={onSearchMovies}
+        onSearchMovies={handleSearch}
+        onSearchShortMovies={handleSearch}
         isChecked={isChecked}
-        onCheck={onCheck}
+        onCheck={handleCheck}
         query={query}
-        onChangeQuery={onChangeQuery}
+        onChangeQuery={handleChangeQuery}
       />
-      <MoviesCardList cards={cards} savedMovies={savedMovies} isNotFound={isNotFound} onDeleteMovie={onDeleteMovie} />
+      <MoviesCardList cards={renderedCards} savedMovies={savedMovies} isNotFound={isNotFound} onDeleteMovie={onDeleteMovie} />
     </main>
   );
 }

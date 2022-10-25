@@ -6,13 +6,13 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import useDefineWidth from '../../utils/hooks/useDefineWidth';
 
 import {
-  desktopCards,
-  tabletCards,
-  mobileCards,
-  desktopLoadedCards,
-  tabletMobileLoadedCards,
-  desktopMinWidth,
-  tabletMinWidth
+  DESKTOP_CARDS,
+  TABLET_CARDS,
+  MOBILE_CARDS,
+  DESKTOP_LOADED_CARDS,
+  TABLET_MOBILE_LOADED_CARDS,
+  DESKTOP_MIN_WIDTH,
+  TABLET_MIN_WIDTH,
 } from '../../utils/data';
 
 function Movies({ isLoading, cards, savedMovies, isChecked, onCheck, onSearchMovies, onSearchShortMovies, query, onChangeQuery, isNotFound, onSaveMovie, onDeleteMovie }) {
@@ -22,23 +22,27 @@ function Movies({ isLoading, cards, savedMovies, isChecked, onCheck, onSearchMov
   const width = useDefineWidth();
 
   useEffect(() => {
-    if (width >= desktopMinWidth) {
-      setInitialCardsCount(desktopCards);
-      setAddedCardsCount(desktopLoadedCards);
-    } else if (width < desktopMinWidth && width >= tabletMinWidth) {
-      setInitialCardsCount(tabletCards);
-      setAddedCardsCount(tabletMobileLoadedCards);
-    } else if (width < tabletMinWidth) {
-      setInitialCardsCount(mobileCards);
-      setAddedCardsCount(tabletMobileLoadedCards);
+    if (width >= DESKTOP_MIN_WIDTH) {
+      setInitialCardsCount(DESKTOP_CARDS);
+      setAddedCardsCount(DESKTOP_LOADED_CARDS);
+    } else if (width < DESKTOP_MIN_WIDTH && width >= TABLET_MIN_WIDTH) {
+      setInitialCardsCount(TABLET_CARDS);
+      setAddedCardsCount(TABLET_MOBILE_LOADED_CARDS);
+    } else if (width < TABLET_MIN_WIDTH) {
+      setInitialCardsCount(MOBILE_CARDS);
+      setAddedCardsCount(TABLET_MOBILE_LOADED_CARDS);
     }
   }, [width]);
 
+  // useEffect(() => {
+  //   if (renderedCards.length <= initialCardsCount) {
+  //     setRenderedCards(cards.slice(0, initialCardsCount));
+  //   }
+  // }, [cards, initialCardsCount, renderedCards.length]);
+
   useEffect(() => {
-    if (renderedCards.length <= initialCardsCount) {
-      setRenderedCards(cards.slice(0, initialCardsCount));
-    }
-  }, [cards, initialCardsCount, renderedCards.length]);
+    setRenderedCards(cards.slice(0, initialCardsCount));
+  }, [cards, initialCardsCount, width]);
 
   function handleAddCards() {
     const cardsCount = renderedCards.length;

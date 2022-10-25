@@ -1,17 +1,17 @@
-const desktopCards = 12;
-const tabletCards = 8;
-const mobileCards = 5;
-const desktopLoadedCards = 3;
-const tabletMobileLoadedCards = 2;
-const desktopMinWidth = 1225;
-const tabletMinWidth = 793;
+const DESKTOP_CARDS = 12;
+const TABLET_CARDS = 8;
+const MOBILE_CARDS = 5;
+const DESKTOP_LOADED_CARDS = 3;
+const TABLET_MOBILE_LOADED_CARDS = 2;
+const DESKTOP_MIN_WIDTH = 1225;
+const TABLET_MIN_WIDTH = 793;
 
 export {
-  desktopCards,
-  tabletCards,
-  mobileCards,
-  desktopLoadedCards,
-  tabletMobileLoadedCards,
-  desktopMinWidth,
-  tabletMinWidth,
+  DESKTOP_CARDS,
+  TABLET_CARDS,
+  MOBILE_CARDS,
+  DESKTOP_LOADED_CARDS,
+  TABLET_MOBILE_LOADED_CARDS,
+  DESKTOP_MIN_WIDTH,
+  TABLET_MIN_WIDTH,
 }

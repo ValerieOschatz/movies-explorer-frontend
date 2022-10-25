@@ -4,7 +4,7 @@ import isEmail from 'validator/lib/isEmail';
 import './Login.css';
 import Auth from '../Auth/Auth';
 
-function Login({ onLogin }) {
+function Login({ onLogin, error }) {
   const [email, setEmail] = useState({ value: '', isValid: true, errorText: '' });
   const [password, setPassword] = useState({ value: '', isValid: true, errorText: '' });
   const [isButtonDisabled, setButtonDisabled] = useState(false);
@@ -67,6 +67,7 @@ function Login({ onLogin }) {
         className={`auth__submit-button auth__submit-button_type_login ${(!isFormValid || isButtonDisabled) && 'auth__submit-button_disabled'}`}
         type="submit"
         disabled={(!isFormValid || isButtonDisabled) && true}>
+          <span className="auth__error">{error}</span>
           Войти
         </button>
       <p className="auth__text">Ещё не зарегистрированы?<Link to="/signup" className="auth__link">Регистрация</Link></p>

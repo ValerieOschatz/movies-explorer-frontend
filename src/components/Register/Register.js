@@ -4,7 +4,7 @@ import isEmail from 'validator/lib/isEmail';
 import './Register.css';
 import Auth from '../Auth/Auth';
 
-function Register({ onRegister }) {
+function Register({ onRegister, error }) {
   const [name, setName] = useState({ value: '', isValid: true, errorText: '' });
   const [email, setEmail] = useState({ value: '', isValid: true, errorText: '' });
   const [password, setPassword] = useState({ value: '', isValid: true, errorText: '' });
@@ -90,6 +90,7 @@ function Register({ onRegister }) {
         className={`auth__submit-button ${(!isFormValid || isButtonDisabled) && 'auth__submit-button_disabled'}`}
         type="submit"
         disabled={(!isFormValid || isButtonDisabled) && true}>
+          <span className="auth__error">{error}</span>
           Зарегистрироваться
         </button>
       <p className="auth__text">Уже зарегистрированы?<Link to="/signin" className="auth__link">Войти</Link></p>

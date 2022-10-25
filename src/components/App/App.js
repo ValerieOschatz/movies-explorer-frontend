@@ -31,19 +31,18 @@ function App() {
   const [isNavigationOpen, setNavigationOpen] = useState(false);
   const [isInfoTooltipOpen, setInfoTooltipOpen] = useState(false);
   const [query, setQuery] = useState({ value: '', isValid: false });
-  const [querySavedMovies, setQuerySavedMovies] = useState({ value: '', isValid: false });
   const [movies, setMovies] = useState([]);
   const [searchedMovies, setSearchedMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
-  const [searchedSavedMovies, setSearchedSavedMovies] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [isSuccess, setSuccess] = useState(false);
   const [infoText, setInfoText] = useState('');
   const [isNotFound, setNotFound] = useState('');
-  const [isNotFoundSavedMovies, setNotFoundSavedMovies] = useState('');
   const [isChecked, setChecked] = useState(false);
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
+  const [registerError, setRegisterError] = useState('');
+  const [loginError, setLoginError] = useState('');
   const history = useHistory();
 
   function handleNavigationClick() {
@@ -66,10 +65,6 @@ function App() {
     setQuery({ value: e.target.value, isValid: e.target.validity.valid });
   }
 
-  function handleChangeQuerySavedMovies(e) {
-    setQuerySavedMovies({ value: e.target.value, isValid: e.target.validity.valid });
-  }
-
   function searchMovies(movies, query) {
     let resultMovies;
     resultMovies = filterByQuery(movies, query);
@@ -84,9 +79,6 @@ function App() {
       localStorage.setItem('query', query);
       localStorage.setItem('checkbox', JSON.stringify(isChecked));
     } else {
-      setSuccess(false);
-      setInfoText('Ничего не найдено');
-      setInfoTooltipOpen(true);
       setNotFound('Нет результатов');
     }
   }
@@ -140,15 +132,14 @@ function App() {
     .then((res) => {
       if (res) {
         handleLogin(email, password);
+        setRegisterError('');
         setInfoTooltipOpen(true);
         setSuccess(true);
         setInfoText('Вы успешно зарегистрировались!');
       }
     })
     .catch((err) => {
-      setInfoTooltipOpen(true);
-      setSuccess(false);
-      setInfoText(err);
+      setRegisterError(err);
       console.log(err);
     })
   }
@@ -158,13 +149,12 @@ function App() {
     .then((res) => {
       if (res.token) {
         setLoggedIn(true);
+        setLoginError('');
         history.push('/movies');
       }
     })
     .catch((err) => {
-      setInfoTooltipOpen(true);
-      setSuccess(false);
-      setInfoText(err);
+      setLoginError(err);
       console.log(err);
     })
   }
@@ -194,7 +184,7 @@ function App() {
       if (res) {
         setLoggedIn(true);
         setCurrentUser(res);
-        history.push('/movies');
+        // history.push('/movies');
       }
     })
     .catch((err) => {
@@ -244,10 +234,6 @@ function App() {
     }
   }, [isLoggedIn, currentUser]);
 
-  useEffect(() => {
-    setSearchedSavedMovies(savedMovies);
-  }, [savedMovies]);
-
   function handleSaveMovie(card) {
     createMovie(card)
     .then((res) => {
@@ -273,28 +259,6 @@ function App() {
       setInfoText(err);
       console.log(err);
     })
-  }
-
-  function handleSearchSavedMovies(query) {
-    if (savedMovies.length === 0) {
-      return;
-    }
-
-    let resultMovies;
-    resultMovies = filterByQuery(savedMovies, query);
-    if (isChecked) {
-      resultMovies = filterByDuration(filterByQuery(savedMovies, query));
-    }
-
-    if (resultMovies.length > 0) {
-      setSearchedSavedMovies(resultMovies);
-      setNotFound('');
-    } else {
-      setSuccess(false);
-      setInfoText('Ничего не найдено');
-      setInfoTooltipOpen(true);
-      setNotFoundSavedMovies('Нет результатов');
-    }
   }
 
   return (
@@ -328,16 +292,9 @@ function App() {
           <ProtectedRoute
             path="/saved-movies"
             component={SavedMovies}
-            cards={searchedSavedMovies}
+            cards={savedMovies}
             savedMovies={savedMovies}
-            searchedSavedMovies={searchedSavedMovies}
-            onSearchMovies={handleSearchSavedMovies}
-            isChecked={isChecked}
-            onCheck={handleCheck}
-            query={querySavedMovies}
-            onChangeQuery={handleChangeQuerySavedMovies}
             isLoggedIn={isLoggedIn}
-            isNotFound={isNotFoundSavedMovies}
             onDeleteMovie={handleDeleteMovie}
           />
 
@@ -350,11 +307,11 @@ function App() {
           />
 
           <Route path="/signup">
-            <Register onRegister={handleRegister} />
+            <Register onRegister={handleRegister} error={registerError} />
           </Route>
 
           <Route path="/signin">
-            <Login onLogin={handleLogin} />
+            <Login onLogin={handleLogin} error={loginError} />
           </Route>
 
           <Route path="*">
