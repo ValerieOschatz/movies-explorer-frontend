@@ -1,8 +1,11 @@
 import './InfoTooltip.css';
 import img_success from '../../images/Union_t.svg';
 import img_error from '../../images/Union_f.svg';
+import useClose from '../../utils/hooks/useClose';
 
 function InfoTooltip({ isOpen, onClose, isSuccess, infoText }) {
+  useClose(isOpen, onClose);
+  
   return (
     <div className={`info-tooltip ${isOpen && "info-tooltip_opened"}`}>
       <div className="info-tooltip__container">

@@ -81,7 +81,7 @@
 .search-form__input-error {
   position: absolute;
   bottom: -30px;
-  font-size: 18px;
+  font-size: 14px;
   line-height: 1.11;
   color: #EE3465;
 }

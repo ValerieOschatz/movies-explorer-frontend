@@ -2,18 +2,18 @@ import './SavedMovies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function SavedMovies({ cards, savedMovies, isChecked, onCheck, onSearchMovies, onSearchShortMovies, query, onChangeQuery, isNotFound, onSaveMovie, onDeleteMovie }) {
+function SavedMovies({ cards, savedMovies, isChecked, onCheck, onSearchMovies, query, onChangeQuery, isNotFound, onDeleteMovie }) {
   return (
     <main className="saved-movies">
       <SearchForm
         onSearchMovies={onSearchMovies}
-        onSearchShortMovies={onSearchShortMovies}
+        onSearchShortMovies={onSearchMovies}
         isChecked={isChecked}
         onCheck={onCheck}
         query={query}
         onChangeQuery={onChangeQuery}
       />
-      <MoviesCardList cards={cards} savedMovies={savedMovies} isNotFound={isNotFound} onSaveMovie={onSaveMovie} onDeleteMovie={onDeleteMovie} />
+      <MoviesCardList cards={cards} savedMovies={savedMovies} isNotFound={isNotFound} onDeleteMovie={onDeleteMovie} />
     </main>
   );
 }

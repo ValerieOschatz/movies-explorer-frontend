@@ -38,7 +38,7 @@ function SearchForm({ isChecked, onCheck, onSearchMovies, onSearchShortMovies, q
             onChange={onChangeQuery}
             value={query.value || ''}
           />
-          <button className="search-form__button" aria-label="Поиск" />
+          <button className="search-form__button" type="submit" aria-label="Поиск" />
           <span className="search-form__input-error">
             {!query.isValid && errorText}
           </span>

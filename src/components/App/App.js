@@ -31,13 +31,16 @@ function App() {
   const [isNavigationOpen, setNavigationOpen] = useState(false);
   const [isInfoTooltipOpen, setInfoTooltipOpen] = useState(false);
   const [query, setQuery] = useState({ value: '', isValid: false });
+  const [querySavedMovies, setQuerySavedMovies] = useState({ value: '', isValid: false });
   const [movies, setMovies] = useState([]);
   const [searchedMovies, setSearchedMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
+  const [searchedSavedMovies, setSearchedSavedMovies] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [isSuccess, setSuccess] = useState(false);
   const [infoText, setInfoText] = useState('');
   const [isNotFound, setNotFound] = useState('');
+  const [isNotFoundSavedMovies, setNotFoundSavedMovies] = useState('');
   const [isChecked, setChecked] = useState(false);
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
@@ -61,6 +64,10 @@ function App() {
 
   function handleChangeQuery(e) {
     setQuery({ value: e.target.value, isValid: e.target.validity.valid });
+  }
+
+  function handleChangeQuerySavedMovies(e) {
+    setQuerySavedMovies({ value: e.target.value, isValid: e.target.validity.valid });
   }
 
   function searchMovies(movies, query) {
@@ -237,6 +244,10 @@ function App() {
     }
   }, [isLoggedIn, currentUser]);
 
+  useEffect(() => {
+    setSearchedSavedMovies(savedMovies);
+  }, [savedMovies]);
+
   function handleSaveMovie(card) {
     createMovie(card)
     .then((res) => {
@@ -262,6 +273,28 @@ function App() {
       setInfoText(err);
       console.log(err);
     })
+  }
+
+  function handleSearchSavedMovies(query) {
+    if (savedMovies.length === 0) {
+      return;
+    }
+
+    let resultMovies;
+    resultMovies = filterByQuery(savedMovies, query);
+    if (isChecked) {
+      resultMovies = filterByDuration(filterByQuery(savedMovies, query));
+    }
+
+    if (resultMovies.length > 0) {
+      setSearchedSavedMovies(resultMovies);
+      setNotFound('');
+    } else {
+      setSuccess(false);
+      setInfoText('Ничего не найдено');
+      setInfoTooltipOpen(true);
+      setNotFoundSavedMovies('Нет результатов');
+    }
   }
 
   return (
@@ -295,17 +328,16 @@ function App() {
           <ProtectedRoute
             path="/saved-movies"
             component={SavedMovies}
-            cards={savedMovies}
+            cards={searchedSavedMovies}
             savedMovies={savedMovies}
-            // onSearchMovies={handleSearchMovies}
-            // onSearchShortMovies={handleSearchShortMovies}
-            // isChecked={isChecked}
-            // onCheck={handleCheck}
-            query={query}
-            onChangeQuery={handleChangeQuery}
+            searchedSavedMovies={searchedSavedMovies}
+            onSearchMovies={handleSearchSavedMovies}
+            isChecked={isChecked}
+            onCheck={handleCheck}
+            query={querySavedMovies}
+            onChangeQuery={handleChangeQuerySavedMovies}
             isLoggedIn={isLoggedIn}
-            // isNotFound={isNotFound}
-            // onSaveMovie={handleSaveMovie}
+            isNotFound={isNotFoundSavedMovies}
             onDeleteMovie={handleDeleteMovie}
           />
 

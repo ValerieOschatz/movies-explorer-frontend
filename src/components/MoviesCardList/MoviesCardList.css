@@ -1,13 +1,11 @@
 .movies-cardlist{
   display: flex;
   flex-direction: column;
-  position: relative;
 }
 
 .movies-cardlist__not-found {
-  position: absolute;
-  top: 70px;
-  left: 40%;
+  align-self: center;
+  margin-top: 20px;
 }
 
 .movies-cardlist__list {
@@ -19,24 +17,6 @@
   column-gap: 30px;
   row-gap: 32px;
   justify-content: center;
-}
-
-.movies-cardlist__button {
-  align-self: center;
-  width: 320px;
-  height: 36px;
-  background-color: #fff;
-  border: 1px solid #E8E8E8;
-  cursor: pointer;
-  transition: opacity .3s ease-out;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 1.25;
-  border-radius: 6px;
-}
-
-.movies-cardlist__button:hover {
-  opacity: .6;
 }
 
 @media screen and (max-width: 1023px) {
@@ -53,9 +33,5 @@
     grid-template-columns: repeat(auto-fit, 300px);
     row-gap: 16px;
     padding: 50px 0 80px;
-  }
-
-  .movies-cardlist__button {
-    width: 240px;
   }
 }
