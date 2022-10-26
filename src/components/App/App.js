@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Route, Switch, useHistory } from 'react-router-dom';
+import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import './App.css';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
@@ -39,7 +39,7 @@ function App() {
   const [infoText, setInfoText] = useState('');
   const [isNotFound, setNotFound] = useState('');
   const [isChecked, setChecked] = useState(false);
-  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [isLoggedIn, setLoggedIn] = useState(JSON.parse(localStorage.getItem('loggedIn')));
   const [currentUser, setCurrentUser] = useState({});
   const [registerError, setRegisterError] = useState('');
   const [loginError, setLoginError] = useState('');
@@ -112,21 +112,7 @@ function App() {
     }
     searchMovies(movies, query);
   }
-
-  useEffect(() => {
-    if (localStorage.getItem('movies')) {
-      setMovies(JSON.parse(localStorage.getItem('movies')));
-    }
-  }, []);
-
-  useEffect(() => {
-    if (localStorage.getItem('query') && localStorage.getItem('searchedMovies') && localStorage.getItem('checkbox')) {
-      setQuery({ value: localStorage.getItem('query'), isValid: true });
-      setSearchedMovies(JSON.parse(localStorage.getItem('searchedMovies')));
-      setChecked(JSON.parse(localStorage.getItem('checkbox')));
-    }
-  }, []);
-
+  
   function handleRegister(name, email, password) {
     register(name, email, password)
     .then((res) => {
@@ -143,13 +129,14 @@ function App() {
       console.log(err);
     })
   }
-
+  
   function handleLogin(email, password) {
     login(email, password)
     .then((res) => {
       if (res.token) {
         setLoggedIn(true);
         setLoginError('');
+        localStorage.setItem('loggedIn', JSON.stringify(true));
         history.push('/movies');
       }
     })
@@ -158,16 +145,33 @@ function App() {
       console.log(err);
     })
   }
+  
+  useEffect(() => {
+    if (localStorage.getItem('loggedIn')) {
+      setLoggedIn(JSON.parse(localStorage.getItem('loggedIn')));
+    }
+
+    if (localStorage.getItem('movies')) {
+      setMovies(JSON.parse(localStorage.getItem('movies')));
+    }
+
+    if (localStorage.getItem('query') && localStorage.getItem('searchedMovies') && localStorage.getItem('checkbox')) {
+      setQuery({ value: localStorage.getItem('query'), isValid: true });
+      setSearchedMovies(JSON.parse(localStorage.getItem('searchedMovies')));
+      setChecked(JSON.parse(localStorage.getItem('checkbox')));
+    }
+  }, []);
 
   function handleSignOut(){
     logout()
     .then(() => {
-      setLoggedIn(false);
       setCurrentUser({});
       localStorage.removeItem('query');
       localStorage.removeItem('searchedMovies');
       localStorage.removeItem('checkbox');
       localStorage.removeItem('movies');
+      localStorage.removeItem('loggedIn');
+      setLoggedIn(false);
       setMovies([]);
       setSearchedMovies([]);
       setQuery('');
@@ -177,21 +181,6 @@ function App() {
       console.log(err);
     })
   }
-
-  useEffect(() => {
-    getCurrentUser()
-    .then((res) => {
-      if (res) {
-        setLoggedIn(true);
-        setCurrentUser(res);
-        // history.push('/movies');
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-      history.push('/');
-    })
-  }, [history]);
 
   function handleUpdateUser(name, email) {
     updateUser(name, email)
@@ -307,11 +296,19 @@ function App() {
           />
 
           <Route path="/signup">
-            <Register onRegister={handleRegister} error={registerError} />
+            {isLoggedIn ? (
+              <Redirect to="/" />
+            ) : (
+              <Register onRegister={handleRegister} error={registerError} />
+            )}
           </Route>
 
           <Route path="/signin">
-            <Login onLogin={handleLogin} error={loginError} />
+            {isLoggedIn ? (
+              <Redirect to="/" />
+            ) : (
+              <Login onLogin={handleLogin} error={loginError} />
+            )}
           </Route>
 
           <Route path="*">
