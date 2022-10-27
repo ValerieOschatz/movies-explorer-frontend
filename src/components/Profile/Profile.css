@@ -41,11 +41,6 @@
   font-size: 11px;
   line-height: 1.18;
   color: #EE3465;
-  display: none;
-}
-
-.profile__input-error_visible {
-  display: block;
 }
 
 .profile-name-input-error {
@@ -92,6 +87,16 @@
 
 .profile__submit-button:hover {
   opacity: .6;
+}
+
+.profile__submit-button_disabled {
+  color: #acacac;
+  cursor: auto;
+  transition: none;
+}
+
+.profile__submit-button_disabled:hover {
+  opacity: 1;
 }
 
 .profile__exit-button {

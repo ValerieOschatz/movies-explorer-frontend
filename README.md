@@ -1,3 +1,7 @@
 # movies-explorer-frontend
 
-Макет находится по ссылке - https://disk.yandex.ru/d/wrgYDdWfhCDUoQ  
+
+Pull request: https://github.com/ValerieOschatz/movies-explorer-frontend/pull/2  
+Фронтенд: https://vo.movies-explorer.nomoredomains.icu  
+Бэкенд: https://api.vo.movies-explorer.nomoredomains.icu  
+Макет: https://disk.yandex.ru/d/wrgYDdWfhCDUoQ  
