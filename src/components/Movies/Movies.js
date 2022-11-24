@@ -34,12 +34,6 @@ function Movies({ isLoading, cards, savedMovies, isChecked, onCheck, onSearchMov
     }
   }, [width]);
 
-  // useEffect(() => {
-  //   if (renderedCards.length <= initialCardsCount) {
-  //     setRenderedCards(cards.slice(0, initialCardsCount));
-  //   }
-  // }, [cards, initialCardsCount, renderedCards.length]);
-
   useEffect(() => {
     setRenderedCards(cards.slice(0, initialCardsCount));
   }, [cards, initialCardsCount, width]);
@@ -64,7 +58,7 @@ function Movies({ isLoading, cards, savedMovies, isChecked, onCheck, onSearchMov
       />
       {isLoading && <Preloader />}
       <MoviesCardList cards={renderedCards} savedMovies={savedMovies} isNotFound={isNotFound} onSaveMovie={onSaveMovie} onDeleteMovie={onDeleteMovie} />
-      {renderedCards.length > 0 && renderedCards.length !== cards.length &&
+      {!isNotFound && renderedCards.length !== cards.length &&
         <button className="movies__button" onClick={handleAddCards}>Ещё</button>}
     </main>
   );

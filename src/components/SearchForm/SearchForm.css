@@ -13,10 +13,6 @@
   align-items: center;
 }
 
-.search-form__form:focus-within {
-  outline: 1px solid #979797;
-}
-
 .search-form__form-field {
   flex: 1;
   display: flex;
