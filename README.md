@@ -23,9 +23,6 @@ Movies Explorer - сервис, в котором можно найти филь
 * Адаптив, респонсив
 * БЭМ
 
-
-Фронтенд: https://vo.movies-explorer.nomoredomains.icu  
-Бэкенд: https://api.vo.movies-explorer.nomoredomains.icu  
 Макет: https://disk.yandex.ru/d/wrgYDdWfhCDUoQ  
 
 ### Локальный запуск проекта
